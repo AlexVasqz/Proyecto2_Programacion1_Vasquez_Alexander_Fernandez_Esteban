@@ -132,303 +132,503 @@ public class Tablero extends javax.swing.JFrame {
 
         casilla1.setBackground(new java.awt.Color(204, 204, 204));
         casilla1.setForeground(new java.awt.Color(153, 153, 153));
+        casilla1.setBorderPainted(false);
+        casilla1.setContentAreaFilled(false);
 
         casilla2.setBackground(new java.awt.Color(204, 204, 204));
         casilla2.setForeground(new java.awt.Color(153, 153, 153));
+        casilla2.setBorderPainted(false);
+        casilla2.setContentAreaFilled(false);
 
         casilla3.setBackground(new java.awt.Color(204, 204, 204));
         casilla3.setForeground(new java.awt.Color(153, 153, 153));
+        casilla3.setBorderPainted(false);
+        casilla3.setContentAreaFilled(false);
 
         casilla4.setBackground(new java.awt.Color(204, 204, 204));
         casilla4.setForeground(new java.awt.Color(153, 153, 153));
+        casilla4.setBorderPainted(false);
+        casilla4.setContentAreaFilled(false);
 
         casilla5.setBackground(new java.awt.Color(204, 204, 204));
         casilla5.setForeground(new java.awt.Color(153, 153, 153));
+        casilla5.setBorderPainted(false);
+        casilla5.setContentAreaFilled(false);
 
         casilla6.setBackground(new java.awt.Color(204, 204, 204));
         casilla6.setForeground(new java.awt.Color(153, 153, 153));
+        casilla6.setBorderPainted(false);
+        casilla6.setContentAreaFilled(false);
 
         casilla7.setBackground(new java.awt.Color(204, 204, 204));
         casilla7.setForeground(new java.awt.Color(153, 153, 153));
+        casilla7.setBorderPainted(false);
+        casilla7.setContentAreaFilled(false);
 
         casilla8.setBackground(new java.awt.Color(204, 204, 204));
         casilla8.setForeground(new java.awt.Color(153, 153, 153));
+        casilla8.setBorderPainted(false);
+        casilla8.setContentAreaFilled(false);
 
         casilla9.setBackground(new java.awt.Color(204, 204, 204));
         casilla9.setForeground(new java.awt.Color(153, 153, 153));
+        casilla9.setBorderPainted(false);
+        casilla9.setContentAreaFilled(false);
 
         casilla10.setBackground(new java.awt.Color(204, 204, 204));
         casilla10.setForeground(new java.awt.Color(153, 153, 153));
+        casilla10.setBorderPainted(false);
+        casilla10.setContentAreaFilled(false);
 
         casilla11.setBackground(new java.awt.Color(204, 204, 204));
         casilla11.setForeground(new java.awt.Color(153, 153, 153));
+        casilla11.setBorderPainted(false);
+        casilla11.setContentAreaFilled(false);
 
         casilla12.setBackground(new java.awt.Color(204, 204, 204));
         casilla12.setForeground(new java.awt.Color(153, 153, 153));
+        casilla12.setBorderPainted(false);
+        casilla12.setContentAreaFilled(false);
 
         casilla13.setBackground(new java.awt.Color(204, 204, 204));
         casilla13.setForeground(new java.awt.Color(153, 153, 153));
+        casilla13.setBorderPainted(false);
+        casilla13.setContentAreaFilled(false);
 
         casilla14.setBackground(new java.awt.Color(204, 204, 204));
         casilla14.setForeground(new java.awt.Color(153, 153, 153));
+        casilla14.setBorderPainted(false);
+        casilla14.setContentAreaFilled(false);
 
         casilla15.setBackground(new java.awt.Color(204, 204, 204));
         casilla15.setForeground(new java.awt.Color(153, 153, 153));
+        casilla15.setBorderPainted(false);
+        casilla15.setContentAreaFilled(false);
 
         casilla16.setBackground(new java.awt.Color(204, 204, 204));
         casilla16.setForeground(new java.awt.Color(153, 153, 153));
+        casilla16.setBorderPainted(false);
+        casilla16.setContentAreaFilled(false);
 
         casilla17.setBackground(new java.awt.Color(204, 204, 204));
         casilla17.setForeground(new java.awt.Color(153, 153, 153));
+        casilla17.setBorderPainted(false);
+        casilla17.setContentAreaFilled(false);
 
         casilla18.setBackground(new java.awt.Color(204, 204, 204));
         casilla18.setForeground(new java.awt.Color(153, 153, 153));
+        casilla18.setBorderPainted(false);
+        casilla18.setContentAreaFilled(false);
 
         casilla19.setBackground(new java.awt.Color(204, 204, 204));
         casilla19.setForeground(new java.awt.Color(153, 153, 153));
+        casilla19.setBorderPainted(false);
+        casilla19.setContentAreaFilled(false);
 
         casilla20.setBackground(new java.awt.Color(204, 204, 204));
         casilla20.setForeground(new java.awt.Color(153, 153, 153));
+        casilla20.setBorderPainted(false);
+        casilla20.setContentAreaFilled(false);
 
         casilla21.setBackground(new java.awt.Color(204, 204, 204));
         casilla21.setForeground(new java.awt.Color(153, 153, 153));
+        casilla21.setBorderPainted(false);
+        casilla21.setContentAreaFilled(false);
 
         casilla22.setBackground(new java.awt.Color(204, 204, 204));
         casilla22.setForeground(new java.awt.Color(153, 153, 153));
+        casilla22.setBorderPainted(false);
+        casilla22.setContentAreaFilled(false);
 
         casilla23.setBackground(new java.awt.Color(204, 204, 204));
         casilla23.setForeground(new java.awt.Color(153, 153, 153));
+        casilla23.setBorderPainted(false);
+        casilla23.setContentAreaFilled(false);
 
         casilla24.setBackground(new java.awt.Color(204, 204, 204));
         casilla24.setForeground(new java.awt.Color(153, 153, 153));
+        casilla24.setBorderPainted(false);
+        casilla24.setContentAreaFilled(false);
 
         casilla25.setBackground(new java.awt.Color(204, 204, 204));
         casilla25.setForeground(new java.awt.Color(153, 153, 153));
+        casilla25.setBorderPainted(false);
+        casilla25.setContentAreaFilled(false);
 
         casilla26.setBackground(new java.awt.Color(204, 204, 204));
         casilla26.setForeground(new java.awt.Color(153, 153, 153));
+        casilla26.setBorderPainted(false);
+        casilla26.setContentAreaFilled(false);
 
         casilla27.setBackground(new java.awt.Color(204, 204, 204));
         casilla27.setForeground(new java.awt.Color(153, 153, 153));
+        casilla27.setBorderPainted(false);
+        casilla27.setContentAreaFilled(false);
 
         casilla28.setBackground(new java.awt.Color(204, 204, 204));
         casilla28.setForeground(new java.awt.Color(153, 153, 153));
+        casilla28.setBorderPainted(false);
+        casilla28.setContentAreaFilled(false);
 
         casilla29.setBackground(new java.awt.Color(204, 204, 204));
         casilla29.setForeground(new java.awt.Color(153, 153, 153));
+        casilla29.setBorderPainted(false);
+        casilla29.setContentAreaFilled(false);
 
         casilla30.setBackground(new java.awt.Color(204, 204, 204));
         casilla30.setForeground(new java.awt.Color(153, 153, 153));
+        casilla30.setBorderPainted(false);
+        casilla30.setContentAreaFilled(false);
 
         casilla31.setBackground(new java.awt.Color(204, 204, 204));
         casilla31.setForeground(new java.awt.Color(153, 153, 153));
+        casilla31.setBorderPainted(false);
+        casilla31.setContentAreaFilled(false);
 
         casilla32.setBackground(new java.awt.Color(204, 204, 204));
         casilla32.setForeground(new java.awt.Color(153, 153, 153));
+        casilla32.setBorderPainted(false);
+        casilla32.setContentAreaFilled(false);
 
         casilla33.setBackground(new java.awt.Color(204, 204, 204));
         casilla33.setForeground(new java.awt.Color(153, 153, 153));
+        casilla33.setBorderPainted(false);
+        casilla33.setContentAreaFilled(false);
 
         casilla34.setBackground(new java.awt.Color(204, 204, 204));
         casilla34.setForeground(new java.awt.Color(153, 153, 153));
+        casilla34.setBorderPainted(false);
+        casilla34.setContentAreaFilled(false);
 
         casilla35.setBackground(new java.awt.Color(204, 204, 204));
         casilla35.setForeground(new java.awt.Color(153, 153, 153));
+        casilla35.setBorderPainted(false);
+        casilla35.setContentAreaFilled(false);
 
         casilla36.setBackground(new java.awt.Color(204, 204, 204));
         casilla36.setForeground(new java.awt.Color(153, 153, 153));
+        casilla36.setBorderPainted(false);
+        casilla36.setContentAreaFilled(false);
 
         casilla37.setBackground(new java.awt.Color(204, 204, 204));
         casilla37.setForeground(new java.awt.Color(153, 153, 153));
+        casilla37.setBorderPainted(false);
+        casilla37.setContentAreaFilled(false);
 
         casilla38.setBackground(new java.awt.Color(204, 204, 204));
         casilla38.setForeground(new java.awt.Color(153, 153, 153));
+        casilla38.setBorderPainted(false);
+        casilla38.setContentAreaFilled(false);
 
         casilla39.setBackground(new java.awt.Color(204, 204, 204));
         casilla39.setForeground(new java.awt.Color(153, 153, 153));
+        casilla39.setBorderPainted(false);
+        casilla39.setContentAreaFilled(false);
 
         casilla40.setBackground(new java.awt.Color(204, 204, 204));
         casilla40.setForeground(new java.awt.Color(153, 153, 153));
+        casilla40.setBorderPainted(false);
+        casilla40.setContentAreaFilled(false);
 
         casilla41.setBackground(new java.awt.Color(204, 204, 204));
         casilla41.setForeground(new java.awt.Color(153, 153, 153));
+        casilla41.setBorderPainted(false);
+        casilla41.setContentAreaFilled(false);
 
         casilla42.setBackground(new java.awt.Color(204, 204, 204));
         casilla42.setForeground(new java.awt.Color(153, 153, 153));
+        casilla42.setBorderPainted(false);
+        casilla42.setContentAreaFilled(false);
 
         casilla43.setBackground(new java.awt.Color(204, 204, 204));
         casilla43.setForeground(new java.awt.Color(153, 153, 153));
+        casilla43.setBorderPainted(false);
+        casilla43.setContentAreaFilled(false);
 
         casilla44.setBackground(new java.awt.Color(204, 204, 204));
         casilla44.setForeground(new java.awt.Color(153, 153, 153));
+        casilla44.setBorderPainted(false);
+        casilla44.setContentAreaFilled(false);
 
         casilla45.setBackground(new java.awt.Color(204, 204, 204));
         casilla45.setForeground(new java.awt.Color(153, 153, 153));
+        casilla45.setBorderPainted(false);
+        casilla45.setContentAreaFilled(false);
 
         casilla46.setBackground(new java.awt.Color(204, 204, 204));
         casilla46.setForeground(new java.awt.Color(153, 153, 153));
+        casilla46.setBorderPainted(false);
+        casilla46.setContentAreaFilled(false);
 
         casilla47.setBackground(new java.awt.Color(204, 204, 204));
         casilla47.setForeground(new java.awt.Color(153, 153, 153));
+        casilla47.setBorderPainted(false);
+        casilla47.setContentAreaFilled(false);
 
         casilla48.setBackground(new java.awt.Color(204, 204, 204));
         casilla48.setForeground(new java.awt.Color(153, 153, 153));
+        casilla48.setBorderPainted(false);
+        casilla48.setContentAreaFilled(false);
 
         casilla49.setBackground(new java.awt.Color(204, 204, 204));
         casilla49.setForeground(new java.awt.Color(153, 153, 153));
+        casilla49.setBorderPainted(false);
+        casilla49.setContentAreaFilled(false);
 
         casilla50.setBackground(new java.awt.Color(204, 204, 204));
         casilla50.setForeground(new java.awt.Color(153, 153, 153));
+        casilla50.setBorderPainted(false);
+        casilla50.setContentAreaFilled(false);
 
         casilla51.setBackground(new java.awt.Color(204, 204, 204));
         casilla51.setForeground(new java.awt.Color(153, 153, 153));
+        casilla51.setBorderPainted(false);
+        casilla51.setContentAreaFilled(false);
 
         casilla52.setBackground(new java.awt.Color(204, 204, 204));
         casilla52.setForeground(new java.awt.Color(153, 153, 153));
+        casilla52.setBorderPainted(false);
+        casilla52.setContentAreaFilled(false);
 
         casilla53.setBackground(new java.awt.Color(204, 204, 204));
         casilla53.setForeground(new java.awt.Color(153, 153, 153));
+        casilla53.setBorderPainted(false);
+        casilla53.setContentAreaFilled(false);
 
         casilla54.setBackground(new java.awt.Color(204, 204, 204));
         casilla54.setForeground(new java.awt.Color(153, 153, 153));
+        casilla54.setBorderPainted(false);
+        casilla54.setContentAreaFilled(false);
 
         casilla55.setBackground(new java.awt.Color(204, 204, 204));
         casilla55.setForeground(new java.awt.Color(153, 153, 153));
+        casilla55.setBorderPainted(false);
+        casilla55.setContentAreaFilled(false);
 
         casilla56.setBackground(new java.awt.Color(204, 204, 204));
         casilla56.setForeground(new java.awt.Color(153, 153, 153));
+        casilla56.setBorderPainted(false);
+        casilla56.setContentAreaFilled(false);
 
         casilla57.setBackground(new java.awt.Color(204, 204, 204));
         casilla57.setForeground(new java.awt.Color(153, 153, 153));
+        casilla57.setBorderPainted(false);
+        casilla57.setContentAreaFilled(false);
 
         casilla58.setBackground(new java.awt.Color(204, 204, 204));
         casilla58.setForeground(new java.awt.Color(153, 153, 153));
+        casilla58.setBorderPainted(false);
+        casilla58.setContentAreaFilled(false);
 
         casilla59.setBackground(new java.awt.Color(204, 204, 204));
         casilla59.setForeground(new java.awt.Color(153, 153, 153));
+        casilla59.setBorderPainted(false);
+        casilla59.setContentAreaFilled(false);
 
         casilla60.setBackground(new java.awt.Color(204, 204, 204));
         casilla60.setForeground(new java.awt.Color(153, 153, 153));
+        casilla60.setBorderPainted(false);
+        casilla60.setContentAreaFilled(false);
 
         casilla61.setBackground(new java.awt.Color(204, 204, 204));
         casilla61.setForeground(new java.awt.Color(153, 153, 153));
+        casilla61.setBorderPainted(false);
+        casilla61.setContentAreaFilled(false);
 
         casilla62.setBackground(new java.awt.Color(204, 204, 204));
         casilla62.setForeground(new java.awt.Color(153, 153, 153));
+        casilla62.setBorderPainted(false);
+        casilla62.setContentAreaFilled(false);
 
         casilla63.setBackground(new java.awt.Color(204, 204, 204));
         casilla63.setForeground(new java.awt.Color(153, 153, 153));
+        casilla63.setBorderPainted(false);
+        casilla63.setContentAreaFilled(false);
 
         casilla64.setBackground(new java.awt.Color(204, 204, 204));
         casilla64.setForeground(new java.awt.Color(153, 153, 153));
+        casilla64.setBorderPainted(false);
+        casilla64.setContentAreaFilled(false);
 
         casilla65.setBackground(new java.awt.Color(204, 204, 204));
         casilla65.setForeground(new java.awt.Color(153, 153, 153));
+        casilla65.setBorderPainted(false);
+        casilla65.setContentAreaFilled(false);
 
         casilla66.setBackground(new java.awt.Color(204, 204, 204));
         casilla66.setForeground(new java.awt.Color(153, 153, 153));
+        casilla66.setBorderPainted(false);
+        casilla66.setContentAreaFilled(false);
 
         casilla67.setBackground(new java.awt.Color(204, 204, 204));
         casilla67.setForeground(new java.awt.Color(153, 153, 153));
+        casilla67.setBorderPainted(false);
+        casilla67.setContentAreaFilled(false);
 
         casilla68.setBackground(new java.awt.Color(204, 204, 204));
         casilla68.setForeground(new java.awt.Color(153, 153, 153));
+        casilla68.setBorderPainted(false);
+        casilla68.setContentAreaFilled(false);
 
         casilla69.setBackground(new java.awt.Color(204, 204, 204));
         casilla69.setForeground(new java.awt.Color(153, 153, 153));
+        casilla69.setBorderPainted(false);
+        casilla69.setContentAreaFilled(false);
 
         casilla70.setBackground(new java.awt.Color(204, 204, 204));
         casilla70.setForeground(new java.awt.Color(153, 153, 153));
+        casilla70.setBorderPainted(false);
+        casilla70.setContentAreaFilled(false);
 
         casilla71.setBackground(new java.awt.Color(204, 204, 204));
         casilla71.setForeground(new java.awt.Color(153, 153, 153));
+        casilla71.setBorderPainted(false);
+        casilla71.setContentAreaFilled(false);
 
         casilla72.setBackground(new java.awt.Color(204, 204, 204));
         casilla72.setForeground(new java.awt.Color(153, 153, 153));
+        casilla72.setBorderPainted(false);
+        casilla72.setContentAreaFilled(false);
 
         casilla73.setBackground(new java.awt.Color(204, 204, 204));
         casilla73.setForeground(new java.awt.Color(153, 153, 153));
+        casilla73.setBorderPainted(false);
+        casilla73.setContentAreaFilled(false);
 
         casilla74.setBackground(new java.awt.Color(204, 204, 204));
         casilla74.setForeground(new java.awt.Color(153, 153, 153));
+        casilla74.setBorderPainted(false);
+        casilla74.setContentAreaFilled(false);
 
         casilla75.setBackground(new java.awt.Color(204, 204, 204));
         casilla75.setForeground(new java.awt.Color(153, 153, 153));
+        casilla75.setBorderPainted(false);
+        casilla75.setContentAreaFilled(false);
 
         casilla76.setBackground(new java.awt.Color(204, 204, 204));
         casilla76.setForeground(new java.awt.Color(153, 153, 153));
+        casilla76.setBorderPainted(false);
+        casilla76.setContentAreaFilled(false);
 
         casilla77.setBackground(new java.awt.Color(204, 204, 204));
         casilla77.setForeground(new java.awt.Color(153, 153, 153));
+        casilla77.setBorderPainted(false);
+        casilla77.setContentAreaFilled(false);
 
         casilla78.setBackground(new java.awt.Color(204, 204, 204));
         casilla78.setForeground(new java.awt.Color(153, 153, 153));
+        casilla78.setBorderPainted(false);
+        casilla78.setContentAreaFilled(false);
 
         casilla79.setBackground(new java.awt.Color(204, 204, 204));
         casilla79.setForeground(new java.awt.Color(153, 153, 153));
+        casilla79.setBorderPainted(false);
+        casilla79.setContentAreaFilled(false);
 
         casilla80.setBackground(new java.awt.Color(204, 204, 204));
         casilla80.setForeground(new java.awt.Color(153, 153, 153));
+        casilla80.setBorderPainted(false);
+        casilla80.setContentAreaFilled(false);
 
         casilla81.setBackground(new java.awt.Color(204, 204, 204));
         casilla81.setForeground(new java.awt.Color(153, 153, 153));
+        casilla81.setBorderPainted(false);
+        casilla81.setContentAreaFilled(false);
 
         casilla82.setBackground(new java.awt.Color(204, 204, 204));
         casilla82.setForeground(new java.awt.Color(153, 153, 153));
+        casilla82.setBorderPainted(false);
+        casilla82.setContentAreaFilled(false);
 
         casilla83.setBackground(new java.awt.Color(204, 204, 204));
         casilla83.setForeground(new java.awt.Color(153, 153, 153));
+        casilla83.setBorderPainted(false);
+        casilla83.setContentAreaFilled(false);
 
         casilla84.setBackground(new java.awt.Color(204, 204, 204));
         casilla84.setForeground(new java.awt.Color(153, 153, 153));
+        casilla84.setBorderPainted(false);
+        casilla84.setContentAreaFilled(false);
 
         casilla85.setBackground(new java.awt.Color(204, 204, 204));
         casilla85.setForeground(new java.awt.Color(153, 153, 153));
+        casilla85.setBorderPainted(false);
+        casilla85.setContentAreaFilled(false);
 
         casilla86.setBackground(new java.awt.Color(204, 204, 204));
         casilla86.setForeground(new java.awt.Color(153, 153, 153));
+        casilla86.setBorderPainted(false);
+        casilla86.setContentAreaFilled(false);
 
         casilla87.setBackground(new java.awt.Color(204, 204, 204));
         casilla87.setForeground(new java.awt.Color(153, 153, 153));
+        casilla87.setBorderPainted(false);
+        casilla87.setContentAreaFilled(false);
 
         casilla88.setBackground(new java.awt.Color(204, 204, 204));
         casilla88.setForeground(new java.awt.Color(153, 153, 153));
+        casilla88.setBorderPainted(false);
+        casilla88.setContentAreaFilled(false);
 
         casilla89.setBackground(new java.awt.Color(204, 204, 204));
         casilla89.setForeground(new java.awt.Color(153, 153, 153));
+        casilla89.setBorderPainted(false);
+        casilla89.setContentAreaFilled(false);
 
         casilla90.setBackground(new java.awt.Color(204, 204, 204));
         casilla90.setForeground(new java.awt.Color(153, 153, 153));
+        casilla90.setBorderPainted(false);
+        casilla90.setContentAreaFilled(false);
 
         casilla91.setBackground(new java.awt.Color(204, 204, 204));
         casilla91.setForeground(new java.awt.Color(153, 153, 153));
+        casilla91.setBorderPainted(false);
+        casilla91.setContentAreaFilled(false);
 
         casilla92.setBackground(new java.awt.Color(204, 204, 204));
         casilla92.setForeground(new java.awt.Color(153, 153, 153));
+        casilla92.setBorderPainted(false);
+        casilla92.setContentAreaFilled(false);
 
         casilla93.setBackground(new java.awt.Color(204, 204, 204));
         casilla93.setForeground(new java.awt.Color(153, 153, 153));
+        casilla93.setBorderPainted(false);
+        casilla93.setContentAreaFilled(false);
 
         casilla94.setBackground(new java.awt.Color(204, 204, 204));
         casilla94.setForeground(new java.awt.Color(153, 153, 153));
+        casilla94.setBorderPainted(false);
+        casilla94.setContentAreaFilled(false);
 
         casilla95.setBackground(new java.awt.Color(204, 204, 204));
         casilla95.setForeground(new java.awt.Color(153, 153, 153));
+        casilla95.setBorderPainted(false);
+        casilla95.setContentAreaFilled(false);
 
         casilla96.setBackground(new java.awt.Color(204, 204, 204));
         casilla96.setForeground(new java.awt.Color(153, 153, 153));
+        casilla96.setBorderPainted(false);
+        casilla96.setContentAreaFilled(false);
 
         casilla97.setBackground(new java.awt.Color(204, 204, 204));
         casilla97.setForeground(new java.awt.Color(153, 153, 153));
+        casilla97.setBorderPainted(false);
+        casilla97.setContentAreaFilled(false);
 
         casilla98.setBackground(new java.awt.Color(204, 204, 204));
         casilla98.setForeground(new java.awt.Color(153, 153, 153));
+        casilla98.setBorderPainted(false);
+        casilla98.setContentAreaFilled(false);
 
         casilla99.setBackground(new java.awt.Color(204, 204, 204));
         casilla99.setForeground(new java.awt.Color(153, 153, 153));
+        casilla99.setBorderPainted(false);
+        casilla99.setContentAreaFilled(false);
 
         casilla100.setBackground(new java.awt.Color(204, 204, 204));
         casilla100.setForeground(new java.awt.Color(153, 153, 153));
+        casilla100.setBorderPainted(false);
+        casilla100.setContentAreaFilled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
