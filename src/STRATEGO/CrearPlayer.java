@@ -1,4 +1,4 @@
-package STRATEGO;
+package STRATEGO;//QQQ
 
 public class CrearPlayer extends javax.swing.JFrame {
 

@@ -1,5 +1,7 @@
 package STRATEGO;
 
+import javax.swing.JOptionPane;
+
 public class MenuJuego extends javax.swing.JFrame {
     
     FondoPanel fondo = new FondoPanel("/imagenes/background.jpeg");
@@ -139,9 +141,21 @@ public class MenuJuego extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnStrategoMarvelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStrategoMarvelActionPerformed
-        // STRATEGO – MARVEL HEROES! - Sin funcionalidad por ahora
-    }//GEN-LAST:event_btnStrategoMarvelActionPerformed
+    private void btnStrategoMarvelActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            System.out.println("Botón Stratego Marvel presionado");
+            Tablero tablero = new Tablero();
+            tablero.setVisible(true);
+            this.dispose(); // Cerrar el menú actual
+        } catch (Exception e) {
+            System.err.println("Error al abrir el tablero: " + e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, 
+                "Error al abrir el tablero: " + e.getMessage(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
         // CONFIGURACION - Sin funcionalidad por ahora

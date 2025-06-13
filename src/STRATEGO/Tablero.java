@@ -1,1124 +1,738 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package STRATEGO;
 
-/**
- *
- * @author esteb
- */
-public class Tablero extends javax.swing.JFrame {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Random;
 
-    /**
-     * Creates new form Tablero
-     */
+public class Tablero extends JFrame {
+    
+    private JButton[][] casillas;
+    private String[] imagenesHeroes;
+    private String[] imagenesVillanos;
+    private Random random;
+    private boolean[][] casillasOcupadas;
+    private JButton fichaSeleccionada;
+    private int filaSeleccionada = -1;
+    private int colSeleccionada = -1;
+    private String[][] fichasEnTablero;
+    private boolean turnoHeroes;
+    private JLabel labelTurno;
+    
     public Tablero() {
-        initComponents();
+        super("Tablero de Stratego");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(800, 800);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        
+        random = new Random();
+        casillasOcupadas = new boolean[10][10];
+        fichaSeleccionada = null;
+        fichasEnTablero = new String[10][10];
+        turnoHeroes = true;
+        
+        labelTurno = new JLabel("TURNO: HÉROES", SwingConstants.CENTER);
+        labelTurno.setFont(new Font("Arial", Font.BOLD, 20));
+        labelTurno.setForeground(Color.GREEN);
+        labelTurno.setOpaque(true);
+        labelTurno.setBackground(Color.WHITE);
+        
+        imagenesHeroes = new String[] {
+            "heroe 1 (10).png", "heroe 2 (9).png", "heroe 3 (8).png", "heroe 4 (8).png",
+            "heroe 5 (7).png", "heroe 6 (6).png", "heroe 7 (7).png", " heroe 8 (6).png",
+            "heroe 9 (6).png", "heroe 10  (6).png", "heroe 11 (6).png", "heroe 12 (5).png",
+            "heroe 13 (5).png", "heroe 14 (5).png", "heroe 15 (5).png", "heroe 16 (4).png",
+            "heroe 17 (4).png", "heroe 18 (4).png", "heroe 19 (4).png", "heroe 20 (3).png",
+            "heroe 21 (3).png", "heroe 22 (3).png", "heroe 23 (3).png", "heroe 24 (3).png",
+            "heroe 25 (2).png", "heroe 26 (2).png", "heroe 27 (2).png", "heroe 28 (2).png",
+            "heroe 29 (2).png", "heroe 30 (2).png", "heroe 31 (2).png", "heroe 32 (2).png",
+            "heroe 33 (1).png"
+        };
+
+        imagenesVillanos = new String[] {
+            "villian 1 (10).png", "villian 2 (9).png", "villian 3 (8).png", "villian 4 (8).png",
+            "villian 5 (7).png", "villian 6 (7).png", "villian 7 (7).png", "villian 8 (6).png",
+            "villian 9 (6).png", "villian 10 (6).png", "villian 11 (6).png", "villian 12 (5).png",
+            "villian 13 (5).png", "villian 14 (5).png", "villian 15 (5).png", "villian 16 (4).png",
+            "villian 17 (4).png", "villian 18 (4).png", "villian 19 (4).png", "villian 20 (3).png",
+            "villian 21 (3).png", "villian 22 (3).png", "villian 23 (3).png", "villian 24 (3).png",
+            "villian 25 (2).png", "villian 26 (2).png", "villian 27 (2).png", "villian 28 (2).png",
+            "villian 29 (2).png", "villian 30 (2).png", "villian 31 (2).png", "villian 32 (2).png",
+            "villian 33 (1).png"
+        };
+        
+        JPanel panelTablero = new JPanel(new GridLayout(10, 10, 2, 2));
+        panelTablero.setBackground(Color.BLACK);
+        casillas = new JButton[10][10];
+        
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                casillas[i][j] = new JButton();
+                casillas[i][j].setPreferredSize(new Dimension(70, 70));
+                
+                if (i < 4) {
+                    casillas[i][j].setBackground(Color.RED);
+                } else if (i >= 6) {
+                    casillas[i][j].setBackground(Color.GREEN);
+                } else if ((i == 4 || i == 5) && (j == 2 || j == 3 || j == 6 || j == 7)) {
+                    casillas[i][j].setBackground(Color.BLUE);
+                    casillas[i][j].setText("LAGO");
+                    casillas[i][j].setEnabled(false);
+                    casillasOcupadas[i][j] = true;
+                } else {
+                    casillas[i][j].setBackground(Color.WHITE);
+                }
+                
+                final int fila = i;
+                final int col = j;
+                casillas[i][j].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        manejarClickCasilla(fila, col);
+                    }
+                });
+                
+                panelTablero.add(casillas[i][j]);
+            }
+        }
+        
+        colocarFichasEquipo(true);
+        
+        colocarFichasEquipo(false);
+        
+        add(labelTurno, BorderLayout.NORTH);
+        add(panelTablero, BorderLayout.CENTER);
     }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        jPanel1 = new javax.swing.JPanel();
-        casilla1 = new javax.swing.JButton();
-        casilla2 = new javax.swing.JButton();
-        casilla3 = new javax.swing.JButton();
-        casilla4 = new javax.swing.JButton();
-        casilla5 = new javax.swing.JButton();
-        casilla6 = new javax.swing.JButton();
-        casilla7 = new javax.swing.JButton();
-        casilla8 = new javax.swing.JButton();
-        casilla9 = new javax.swing.JButton();
-        casilla10 = new javax.swing.JButton();
-        casilla11 = new javax.swing.JButton();
-        casilla12 = new javax.swing.JButton();
-        casilla13 = new javax.swing.JButton();
-        casilla14 = new javax.swing.JButton();
-        casilla15 = new javax.swing.JButton();
-        casilla16 = new javax.swing.JButton();
-        casilla17 = new javax.swing.JButton();
-        casilla18 = new javax.swing.JButton();
-        casilla19 = new javax.swing.JButton();
-        casilla20 = new javax.swing.JButton();
-        casilla21 = new javax.swing.JButton();
-        casilla22 = new javax.swing.JButton();
-        casilla23 = new javax.swing.JButton();
-        casilla24 = new javax.swing.JButton();
-        casilla25 = new javax.swing.JButton();
-        casilla26 = new javax.swing.JButton();
-        casilla27 = new javax.swing.JButton();
-        casilla28 = new javax.swing.JButton();
-        casilla29 = new javax.swing.JButton();
-        casilla30 = new javax.swing.JButton();
-        casilla31 = new javax.swing.JButton();
-        casilla32 = new javax.swing.JButton();
-        casilla33 = new javax.swing.JButton();
-        casilla34 = new javax.swing.JButton();
-        casilla35 = new javax.swing.JButton();
-        casilla36 = new javax.swing.JButton();
-        casilla37 = new javax.swing.JButton();
-        casilla38 = new javax.swing.JButton();
-        casilla39 = new javax.swing.JButton();
-        casilla40 = new javax.swing.JButton();
-        casilla41 = new javax.swing.JButton();
-        casilla42 = new javax.swing.JButton();
-        casilla43 = new javax.swing.JButton();
-        casilla44 = new javax.swing.JButton();
-        casilla45 = new javax.swing.JButton();
-        casilla46 = new javax.swing.JButton();
-        casilla47 = new javax.swing.JButton();
-        casilla48 = new javax.swing.JButton();
-        casilla49 = new javax.swing.JButton();
-        casilla50 = new javax.swing.JButton();
-        casilla51 = new javax.swing.JButton();
-        casilla52 = new javax.swing.JButton();
-        casilla53 = new javax.swing.JButton();
-        casilla54 = new javax.swing.JButton();
-        casilla55 = new javax.swing.JButton();
-        casilla56 = new javax.swing.JButton();
-        casilla57 = new javax.swing.JButton();
-        casilla58 = new javax.swing.JButton();
-        casilla59 = new javax.swing.JButton();
-        casilla60 = new javax.swing.JButton();
-        casilla61 = new javax.swing.JButton();
-        casilla62 = new javax.swing.JButton();
-        casilla63 = new javax.swing.JButton();
-        casilla64 = new javax.swing.JButton();
-        casilla65 = new javax.swing.JButton();
-        casilla66 = new javax.swing.JButton();
-        casilla67 = new javax.swing.JButton();
-        casilla68 = new javax.swing.JButton();
-        casilla69 = new javax.swing.JButton();
-        casilla70 = new javax.swing.JButton();
-        casilla71 = new javax.swing.JButton();
-        casilla72 = new javax.swing.JButton();
-        casilla73 = new javax.swing.JButton();
-        casilla74 = new javax.swing.JButton();
-        casilla75 = new javax.swing.JButton();
-        casilla76 = new javax.swing.JButton();
-        casilla77 = new javax.swing.JButton();
-        casilla78 = new javax.swing.JButton();
-        casilla79 = new javax.swing.JButton();
-        casilla80 = new javax.swing.JButton();
-        casilla81 = new javax.swing.JButton();
-        casilla82 = new javax.swing.JButton();
-        casilla83 = new javax.swing.JButton();
-        casilla84 = new javax.swing.JButton();
-        casilla85 = new javax.swing.JButton();
-        casilla86 = new javax.swing.JButton();
-        casilla87 = new javax.swing.JButton();
-        casilla88 = new javax.swing.JButton();
-        casilla89 = new javax.swing.JButton();
-        casilla90 = new javax.swing.JButton();
-        casilla91 = new javax.swing.JButton();
-        casilla92 = new javax.swing.JButton();
-        casilla93 = new javax.swing.JButton();
-        casilla94 = new javax.swing.JButton();
-        casilla95 = new javax.swing.JButton();
-        casilla96 = new javax.swing.JButton();
-        casilla97 = new javax.swing.JButton();
-        casilla98 = new javax.swing.JButton();
-        casilla99 = new javax.swing.JButton();
-        casilla100 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        casilla1.setBackground(new java.awt.Color(204, 204, 204));
-        casilla1.setForeground(new java.awt.Color(153, 153, 153));
-        casilla1.setBorderPainted(false);
-        casilla1.setContentAreaFilled(false);
-
-        casilla2.setBackground(new java.awt.Color(204, 204, 204));
-        casilla2.setForeground(new java.awt.Color(153, 153, 153));
-        casilla2.setBorderPainted(false);
-        casilla2.setContentAreaFilled(false);
-
-        casilla3.setBackground(new java.awt.Color(204, 204, 204));
-        casilla3.setForeground(new java.awt.Color(153, 153, 153));
-        casilla3.setBorderPainted(false);
-        casilla3.setContentAreaFilled(false);
-
-        casilla4.setBackground(new java.awt.Color(204, 204, 204));
-        casilla4.setForeground(new java.awt.Color(153, 153, 153));
-        casilla4.setBorderPainted(false);
-        casilla4.setContentAreaFilled(false);
-
-        casilla5.setBackground(new java.awt.Color(204, 204, 204));
-        casilla5.setForeground(new java.awt.Color(153, 153, 153));
-        casilla5.setBorderPainted(false);
-        casilla5.setContentAreaFilled(false);
-
-        casilla6.setBackground(new java.awt.Color(204, 204, 204));
-        casilla6.setForeground(new java.awt.Color(153, 153, 153));
-        casilla6.setBorderPainted(false);
-        casilla6.setContentAreaFilled(false);
-
-        casilla7.setBackground(new java.awt.Color(204, 204, 204));
-        casilla7.setForeground(new java.awt.Color(153, 153, 153));
-        casilla7.setBorderPainted(false);
-        casilla7.setContentAreaFilled(false);
-
-        casilla8.setBackground(new java.awt.Color(204, 204, 204));
-        casilla8.setForeground(new java.awt.Color(153, 153, 153));
-        casilla8.setBorderPainted(false);
-        casilla8.setContentAreaFilled(false);
-
-        casilla9.setBackground(new java.awt.Color(204, 204, 204));
-        casilla9.setForeground(new java.awt.Color(153, 153, 153));
-        casilla9.setBorderPainted(false);
-        casilla9.setContentAreaFilled(false);
-
-        casilla10.setBackground(new java.awt.Color(204, 204, 204));
-        casilla10.setForeground(new java.awt.Color(153, 153, 153));
-        casilla10.setBorderPainted(false);
-        casilla10.setContentAreaFilled(false);
-
-        casilla11.setBackground(new java.awt.Color(204, 204, 204));
-        casilla11.setForeground(new java.awt.Color(153, 153, 153));
-        casilla11.setBorderPainted(false);
-        casilla11.setContentAreaFilled(false);
-
-        casilla12.setBackground(new java.awt.Color(204, 204, 204));
-        casilla12.setForeground(new java.awt.Color(153, 153, 153));
-        casilla12.setBorderPainted(false);
-        casilla12.setContentAreaFilled(false);
-
-        casilla13.setBackground(new java.awt.Color(204, 204, 204));
-        casilla13.setForeground(new java.awt.Color(153, 153, 153));
-        casilla13.setBorderPainted(false);
-        casilla13.setContentAreaFilled(false);
-
-        casilla14.setBackground(new java.awt.Color(204, 204, 204));
-        casilla14.setForeground(new java.awt.Color(153, 153, 153));
-        casilla14.setBorderPainted(false);
-        casilla14.setContentAreaFilled(false);
-
-        casilla15.setBackground(new java.awt.Color(204, 204, 204));
-        casilla15.setForeground(new java.awt.Color(153, 153, 153));
-        casilla15.setBorderPainted(false);
-        casilla15.setContentAreaFilled(false);
-
-        casilla16.setBackground(new java.awt.Color(204, 204, 204));
-        casilla16.setForeground(new java.awt.Color(153, 153, 153));
-        casilla16.setBorderPainted(false);
-        casilla16.setContentAreaFilled(false);
-
-        casilla17.setBackground(new java.awt.Color(204, 204, 204));
-        casilla17.setForeground(new java.awt.Color(153, 153, 153));
-        casilla17.setBorderPainted(false);
-        casilla17.setContentAreaFilled(false);
-
-        casilla18.setBackground(new java.awt.Color(204, 204, 204));
-        casilla18.setForeground(new java.awt.Color(153, 153, 153));
-        casilla18.setBorderPainted(false);
-        casilla18.setContentAreaFilled(false);
-
-        casilla19.setBackground(new java.awt.Color(204, 204, 204));
-        casilla19.setForeground(new java.awt.Color(153, 153, 153));
-        casilla19.setBorderPainted(false);
-        casilla19.setContentAreaFilled(false);
-
-        casilla20.setBackground(new java.awt.Color(204, 204, 204));
-        casilla20.setForeground(new java.awt.Color(153, 153, 153));
-        casilla20.setBorderPainted(false);
-        casilla20.setContentAreaFilled(false);
-
-        casilla21.setBackground(new java.awt.Color(204, 204, 204));
-        casilla21.setForeground(new java.awt.Color(153, 153, 153));
-        casilla21.setBorderPainted(false);
-        casilla21.setContentAreaFilled(false);
-
-        casilla22.setBackground(new java.awt.Color(204, 204, 204));
-        casilla22.setForeground(new java.awt.Color(153, 153, 153));
-        casilla22.setBorderPainted(false);
-        casilla22.setContentAreaFilled(false);
-
-        casilla23.setBackground(new java.awt.Color(204, 204, 204));
-        casilla23.setForeground(new java.awt.Color(153, 153, 153));
-        casilla23.setBorderPainted(false);
-        casilla23.setContentAreaFilled(false);
-
-        casilla24.setBackground(new java.awt.Color(204, 204, 204));
-        casilla24.setForeground(new java.awt.Color(153, 153, 153));
-        casilla24.setBorderPainted(false);
-        casilla24.setContentAreaFilled(false);
-
-        casilla25.setBackground(new java.awt.Color(204, 204, 204));
-        casilla25.setForeground(new java.awt.Color(153, 153, 153));
-        casilla25.setBorderPainted(false);
-        casilla25.setContentAreaFilled(false);
-
-        casilla26.setBackground(new java.awt.Color(204, 204, 204));
-        casilla26.setForeground(new java.awt.Color(153, 153, 153));
-        casilla26.setBorderPainted(false);
-        casilla26.setContentAreaFilled(false);
-
-        casilla27.setBackground(new java.awt.Color(204, 204, 204));
-        casilla27.setForeground(new java.awt.Color(153, 153, 153));
-        casilla27.setBorderPainted(false);
-        casilla27.setContentAreaFilled(false);
-
-        casilla28.setBackground(new java.awt.Color(204, 204, 204));
-        casilla28.setForeground(new java.awt.Color(153, 153, 153));
-        casilla28.setBorderPainted(false);
-        casilla28.setContentAreaFilled(false);
-
-        casilla29.setBackground(new java.awt.Color(204, 204, 204));
-        casilla29.setForeground(new java.awt.Color(153, 153, 153));
-        casilla29.setBorderPainted(false);
-        casilla29.setContentAreaFilled(false);
-
-        casilla30.setBackground(new java.awt.Color(204, 204, 204));
-        casilla30.setForeground(new java.awt.Color(153, 153, 153));
-        casilla30.setBorderPainted(false);
-        casilla30.setContentAreaFilled(false);
-
-        casilla31.setBackground(new java.awt.Color(204, 204, 204));
-        casilla31.setForeground(new java.awt.Color(153, 153, 153));
-        casilla31.setBorderPainted(false);
-        casilla31.setContentAreaFilled(false);
-
-        casilla32.setBackground(new java.awt.Color(204, 204, 204));
-        casilla32.setForeground(new java.awt.Color(153, 153, 153));
-        casilla32.setBorderPainted(false);
-        casilla32.setContentAreaFilled(false);
-
-        casilla33.setBackground(new java.awt.Color(204, 204, 204));
-        casilla33.setForeground(new java.awt.Color(153, 153, 153));
-        casilla33.setBorderPainted(false);
-        casilla33.setContentAreaFilled(false);
-
-        casilla34.setBackground(new java.awt.Color(204, 204, 204));
-        casilla34.setForeground(new java.awt.Color(153, 153, 153));
-        casilla34.setBorderPainted(false);
-        casilla34.setContentAreaFilled(false);
-
-        casilla35.setBackground(new java.awt.Color(204, 204, 204));
-        casilla35.setForeground(new java.awt.Color(153, 153, 153));
-        casilla35.setBorderPainted(false);
-        casilla35.setContentAreaFilled(false);
-
-        casilla36.setBackground(new java.awt.Color(204, 204, 204));
-        casilla36.setForeground(new java.awt.Color(153, 153, 153));
-        casilla36.setBorderPainted(false);
-        casilla36.setContentAreaFilled(false);
-
-        casilla37.setBackground(new java.awt.Color(204, 204, 204));
-        casilla37.setForeground(new java.awt.Color(153, 153, 153));
-        casilla37.setBorderPainted(false);
-        casilla37.setContentAreaFilled(false);
-
-        casilla38.setBackground(new java.awt.Color(204, 204, 204));
-        casilla38.setForeground(new java.awt.Color(153, 153, 153));
-        casilla38.setBorderPainted(false);
-        casilla38.setContentAreaFilled(false);
-
-        casilla39.setBackground(new java.awt.Color(204, 204, 204));
-        casilla39.setForeground(new java.awt.Color(153, 153, 153));
-        casilla39.setBorderPainted(false);
-        casilla39.setContentAreaFilled(false);
-
-        casilla40.setBackground(new java.awt.Color(204, 204, 204));
-        casilla40.setForeground(new java.awt.Color(153, 153, 153));
-        casilla40.setBorderPainted(false);
-        casilla40.setContentAreaFilled(false);
-
-        casilla41.setBackground(new java.awt.Color(204, 204, 204));
-        casilla41.setForeground(new java.awt.Color(153, 153, 153));
-        casilla41.setBorderPainted(false);
-        casilla41.setContentAreaFilled(false);
-
-        casilla42.setBackground(new java.awt.Color(204, 204, 204));
-        casilla42.setForeground(new java.awt.Color(153, 153, 153));
-        casilla42.setBorderPainted(false);
-        casilla42.setContentAreaFilled(false);
-
-        casilla43.setBackground(new java.awt.Color(204, 204, 204));
-        casilla43.setForeground(new java.awt.Color(153, 153, 153));
-        casilla43.setBorderPainted(false);
-        casilla43.setContentAreaFilled(false);
-
-        casilla44.setBackground(new java.awt.Color(204, 204, 204));
-        casilla44.setForeground(new java.awt.Color(153, 153, 153));
-        casilla44.setBorderPainted(false);
-        casilla44.setContentAreaFilled(false);
-
-        casilla45.setBackground(new java.awt.Color(204, 204, 204));
-        casilla45.setForeground(new java.awt.Color(153, 153, 153));
-        casilla45.setBorderPainted(false);
-        casilla45.setContentAreaFilled(false);
-
-        casilla46.setBackground(new java.awt.Color(204, 204, 204));
-        casilla46.setForeground(new java.awt.Color(153, 153, 153));
-        casilla46.setBorderPainted(false);
-        casilla46.setContentAreaFilled(false);
-
-        casilla47.setBackground(new java.awt.Color(204, 204, 204));
-        casilla47.setForeground(new java.awt.Color(153, 153, 153));
-        casilla47.setBorderPainted(false);
-        casilla47.setContentAreaFilled(false);
-
-        casilla48.setBackground(new java.awt.Color(204, 204, 204));
-        casilla48.setForeground(new java.awt.Color(153, 153, 153));
-        casilla48.setBorderPainted(false);
-        casilla48.setContentAreaFilled(false);
-
-        casilla49.setBackground(new java.awt.Color(204, 204, 204));
-        casilla49.setForeground(new java.awt.Color(153, 153, 153));
-        casilla49.setBorderPainted(false);
-        casilla49.setContentAreaFilled(false);
-
-        casilla50.setBackground(new java.awt.Color(204, 204, 204));
-        casilla50.setForeground(new java.awt.Color(153, 153, 153));
-        casilla50.setBorderPainted(false);
-        casilla50.setContentAreaFilled(false);
-
-        casilla51.setBackground(new java.awt.Color(204, 204, 204));
-        casilla51.setForeground(new java.awt.Color(153, 153, 153));
-        casilla51.setBorderPainted(false);
-        casilla51.setContentAreaFilled(false);
-
-        casilla52.setBackground(new java.awt.Color(204, 204, 204));
-        casilla52.setForeground(new java.awt.Color(153, 153, 153));
-        casilla52.setBorderPainted(false);
-        casilla52.setContentAreaFilled(false);
-
-        casilla53.setBackground(new java.awt.Color(204, 204, 204));
-        casilla53.setForeground(new java.awt.Color(153, 153, 153));
-        casilla53.setBorderPainted(false);
-        casilla53.setContentAreaFilled(false);
-
-        casilla54.setBackground(new java.awt.Color(204, 204, 204));
-        casilla54.setForeground(new java.awt.Color(153, 153, 153));
-        casilla54.setBorderPainted(false);
-        casilla54.setContentAreaFilled(false);
-
-        casilla55.setBackground(new java.awt.Color(204, 204, 204));
-        casilla55.setForeground(new java.awt.Color(153, 153, 153));
-        casilla55.setBorderPainted(false);
-        casilla55.setContentAreaFilled(false);
-
-        casilla56.setBackground(new java.awt.Color(204, 204, 204));
-        casilla56.setForeground(new java.awt.Color(153, 153, 153));
-        casilla56.setBorderPainted(false);
-        casilla56.setContentAreaFilled(false);
-
-        casilla57.setBackground(new java.awt.Color(204, 204, 204));
-        casilla57.setForeground(new java.awt.Color(153, 153, 153));
-        casilla57.setBorderPainted(false);
-        casilla57.setContentAreaFilled(false);
-
-        casilla58.setBackground(new java.awt.Color(204, 204, 204));
-        casilla58.setForeground(new java.awt.Color(153, 153, 153));
-        casilla58.setBorderPainted(false);
-        casilla58.setContentAreaFilled(false);
-
-        casilla59.setBackground(new java.awt.Color(204, 204, 204));
-        casilla59.setForeground(new java.awt.Color(153, 153, 153));
-        casilla59.setBorderPainted(false);
-        casilla59.setContentAreaFilled(false);
-
-        casilla60.setBackground(new java.awt.Color(204, 204, 204));
-        casilla60.setForeground(new java.awt.Color(153, 153, 153));
-        casilla60.setBorderPainted(false);
-        casilla60.setContentAreaFilled(false);
-
-        casilla61.setBackground(new java.awt.Color(204, 204, 204));
-        casilla61.setForeground(new java.awt.Color(153, 153, 153));
-        casilla61.setBorderPainted(false);
-        casilla61.setContentAreaFilled(false);
-
-        casilla62.setBackground(new java.awt.Color(204, 204, 204));
-        casilla62.setForeground(new java.awt.Color(153, 153, 153));
-        casilla62.setBorderPainted(false);
-        casilla62.setContentAreaFilled(false);
-
-        casilla63.setBackground(new java.awt.Color(204, 204, 204));
-        casilla63.setForeground(new java.awt.Color(153, 153, 153));
-        casilla63.setBorderPainted(false);
-        casilla63.setContentAreaFilled(false);
-
-        casilla64.setBackground(new java.awt.Color(204, 204, 204));
-        casilla64.setForeground(new java.awt.Color(153, 153, 153));
-        casilla64.setBorderPainted(false);
-        casilla64.setContentAreaFilled(false);
-
-        casilla65.setBackground(new java.awt.Color(204, 204, 204));
-        casilla65.setForeground(new java.awt.Color(153, 153, 153));
-        casilla65.setBorderPainted(false);
-        casilla65.setContentAreaFilled(false);
-
-        casilla66.setBackground(new java.awt.Color(204, 204, 204));
-        casilla66.setForeground(new java.awt.Color(153, 153, 153));
-        casilla66.setBorderPainted(false);
-        casilla66.setContentAreaFilled(false);
-
-        casilla67.setBackground(new java.awt.Color(204, 204, 204));
-        casilla67.setForeground(new java.awt.Color(153, 153, 153));
-        casilla67.setBorderPainted(false);
-        casilla67.setContentAreaFilled(false);
-
-        casilla68.setBackground(new java.awt.Color(204, 204, 204));
-        casilla68.setForeground(new java.awt.Color(153, 153, 153));
-        casilla68.setBorderPainted(false);
-        casilla68.setContentAreaFilled(false);
-
-        casilla69.setBackground(new java.awt.Color(204, 204, 204));
-        casilla69.setForeground(new java.awt.Color(153, 153, 153));
-        casilla69.setBorderPainted(false);
-        casilla69.setContentAreaFilled(false);
-
-        casilla70.setBackground(new java.awt.Color(204, 204, 204));
-        casilla70.setForeground(new java.awt.Color(153, 153, 153));
-        casilla70.setBorderPainted(false);
-        casilla70.setContentAreaFilled(false);
-
-        casilla71.setBackground(new java.awt.Color(204, 204, 204));
-        casilla71.setForeground(new java.awt.Color(153, 153, 153));
-        casilla71.setBorderPainted(false);
-        casilla71.setContentAreaFilled(false);
-
-        casilla72.setBackground(new java.awt.Color(204, 204, 204));
-        casilla72.setForeground(new java.awt.Color(153, 153, 153));
-        casilla72.setBorderPainted(false);
-        casilla72.setContentAreaFilled(false);
-
-        casilla73.setBackground(new java.awt.Color(204, 204, 204));
-        casilla73.setForeground(new java.awt.Color(153, 153, 153));
-        casilla73.setBorderPainted(false);
-        casilla73.setContentAreaFilled(false);
-
-        casilla74.setBackground(new java.awt.Color(204, 204, 204));
-        casilla74.setForeground(new java.awt.Color(153, 153, 153));
-        casilla74.setBorderPainted(false);
-        casilla74.setContentAreaFilled(false);
-
-        casilla75.setBackground(new java.awt.Color(204, 204, 204));
-        casilla75.setForeground(new java.awt.Color(153, 153, 153));
-        casilla75.setBorderPainted(false);
-        casilla75.setContentAreaFilled(false);
-
-        casilla76.setBackground(new java.awt.Color(204, 204, 204));
-        casilla76.setForeground(new java.awt.Color(153, 153, 153));
-        casilla76.setBorderPainted(false);
-        casilla76.setContentAreaFilled(false);
-
-        casilla77.setBackground(new java.awt.Color(204, 204, 204));
-        casilla77.setForeground(new java.awt.Color(153, 153, 153));
-        casilla77.setBorderPainted(false);
-        casilla77.setContentAreaFilled(false);
-
-        casilla78.setBackground(new java.awt.Color(204, 204, 204));
-        casilla78.setForeground(new java.awt.Color(153, 153, 153));
-        casilla78.setBorderPainted(false);
-        casilla78.setContentAreaFilled(false);
-
-        casilla79.setBackground(new java.awt.Color(204, 204, 204));
-        casilla79.setForeground(new java.awt.Color(153, 153, 153));
-        casilla79.setBorderPainted(false);
-        casilla79.setContentAreaFilled(false);
-
-        casilla80.setBackground(new java.awt.Color(204, 204, 204));
-        casilla80.setForeground(new java.awt.Color(153, 153, 153));
-        casilla80.setBorderPainted(false);
-        casilla80.setContentAreaFilled(false);
-
-        casilla81.setBackground(new java.awt.Color(204, 204, 204));
-        casilla81.setForeground(new java.awt.Color(153, 153, 153));
-        casilla81.setBorderPainted(false);
-        casilla81.setContentAreaFilled(false);
-
-        casilla82.setBackground(new java.awt.Color(204, 204, 204));
-        casilla82.setForeground(new java.awt.Color(153, 153, 153));
-        casilla82.setBorderPainted(false);
-        casilla82.setContentAreaFilled(false);
-
-        casilla83.setBackground(new java.awt.Color(204, 204, 204));
-        casilla83.setForeground(new java.awt.Color(153, 153, 153));
-        casilla83.setBorderPainted(false);
-        casilla83.setContentAreaFilled(false);
-
-        casilla84.setBackground(new java.awt.Color(204, 204, 204));
-        casilla84.setForeground(new java.awt.Color(153, 153, 153));
-        casilla84.setBorderPainted(false);
-        casilla84.setContentAreaFilled(false);
-
-        casilla85.setBackground(new java.awt.Color(204, 204, 204));
-        casilla85.setForeground(new java.awt.Color(153, 153, 153));
-        casilla85.setBorderPainted(false);
-        casilla85.setContentAreaFilled(false);
-
-        casilla86.setBackground(new java.awt.Color(204, 204, 204));
-        casilla86.setForeground(new java.awt.Color(153, 153, 153));
-        casilla86.setBorderPainted(false);
-        casilla86.setContentAreaFilled(false);
-
-        casilla87.setBackground(new java.awt.Color(204, 204, 204));
-        casilla87.setForeground(new java.awt.Color(153, 153, 153));
-        casilla87.setBorderPainted(false);
-        casilla87.setContentAreaFilled(false);
-
-        casilla88.setBackground(new java.awt.Color(204, 204, 204));
-        casilla88.setForeground(new java.awt.Color(153, 153, 153));
-        casilla88.setBorderPainted(false);
-        casilla88.setContentAreaFilled(false);
-
-        casilla89.setBackground(new java.awt.Color(204, 204, 204));
-        casilla89.setForeground(new java.awt.Color(153, 153, 153));
-        casilla89.setBorderPainted(false);
-        casilla89.setContentAreaFilled(false);
-
-        casilla90.setBackground(new java.awt.Color(204, 204, 204));
-        casilla90.setForeground(new java.awt.Color(153, 153, 153));
-        casilla90.setBorderPainted(false);
-        casilla90.setContentAreaFilled(false);
-
-        casilla91.setBackground(new java.awt.Color(204, 204, 204));
-        casilla91.setForeground(new java.awt.Color(153, 153, 153));
-        casilla91.setBorderPainted(false);
-        casilla91.setContentAreaFilled(false);
-
-        casilla92.setBackground(new java.awt.Color(204, 204, 204));
-        casilla92.setForeground(new java.awt.Color(153, 153, 153));
-        casilla92.setBorderPainted(false);
-        casilla92.setContentAreaFilled(false);
-
-        casilla93.setBackground(new java.awt.Color(204, 204, 204));
-        casilla93.setForeground(new java.awt.Color(153, 153, 153));
-        casilla93.setBorderPainted(false);
-        casilla93.setContentAreaFilled(false);
-
-        casilla94.setBackground(new java.awt.Color(204, 204, 204));
-        casilla94.setForeground(new java.awt.Color(153, 153, 153));
-        casilla94.setBorderPainted(false);
-        casilla94.setContentAreaFilled(false);
-
-        casilla95.setBackground(new java.awt.Color(204, 204, 204));
-        casilla95.setForeground(new java.awt.Color(153, 153, 153));
-        casilla95.setBorderPainted(false);
-        casilla95.setContentAreaFilled(false);
-
-        casilla96.setBackground(new java.awt.Color(204, 204, 204));
-        casilla96.setForeground(new java.awt.Color(153, 153, 153));
-        casilla96.setBorderPainted(false);
-        casilla96.setContentAreaFilled(false);
-
-        casilla97.setBackground(new java.awt.Color(204, 204, 204));
-        casilla97.setForeground(new java.awt.Color(153, 153, 153));
-        casilla97.setBorderPainted(false);
-        casilla97.setContentAreaFilled(false);
-
-        casilla98.setBackground(new java.awt.Color(204, 204, 204));
-        casilla98.setForeground(new java.awt.Color(153, 153, 153));
-        casilla98.setBorderPainted(false);
-        casilla98.setContentAreaFilled(false);
-
-        casilla99.setBackground(new java.awt.Color(204, 204, 204));
-        casilla99.setForeground(new java.awt.Color(153, 153, 153));
-        casilla99.setBorderPainted(false);
-        casilla99.setContentAreaFilled(false);
-
-        casilla100.setBackground(new java.awt.Color(204, 204, 204));
-        casilla100.setForeground(new java.awt.Color(153, 153, 153));
-        casilla100.setBorderPainted(false);
-        casilla100.setContentAreaFilled(false);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(casilla1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla7, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla9, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla10, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(casilla11, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla12, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla13, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla14, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla15, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla16, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla17, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla18, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla19, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla20, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(casilla21, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla22, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla23, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla24, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla25, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla26, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla27, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla28, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla29, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla30, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(casilla31, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla32, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla33, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla34, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla35, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla36, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla37, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla38, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla39, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla40, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(casilla41, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla42, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla43, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla44, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla45, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla46, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla47, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla48, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla49, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla50, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(casilla51, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla52, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla53, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla54, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla55, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla56, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla57, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla58, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla59, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla60, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(casilla61, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla62, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla63, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla64, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla65, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla66, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla67, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla68, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla69, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla70, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(casilla71, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla72, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla73, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla74, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla75, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla76, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla77, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla78, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla79, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla80, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(casilla81, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla82, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla83, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla84, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla85, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla86, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla87, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla88, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla89, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla90, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(casilla91, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla92, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla93, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla94, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla95, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla96, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla97, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla98, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla99, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(casilla100, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(casilla100, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla99, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla98, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla97, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla96, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla95, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla94, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla93, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla92, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla91, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(casilla90, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla89, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla88, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla87, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla86, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla85, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla84, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla83, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla82, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla81, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(casilla80, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla79, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla78, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla77, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla76, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla75, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla74, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla73, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla72, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla71, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(casilla70, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla69, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla68, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla67, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla66, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla65, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla64, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla63, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla62, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla61, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(casilla60, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla59, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla58, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla57, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla56, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla55, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla54, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla53, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla52, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla51, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(casilla50, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla49, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla48, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla47, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla46, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla45, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla44, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla43, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla42, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla41, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(casilla40, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla39, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla38, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla37, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla36, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla35, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla34, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla33, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla32, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla31, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(casilla30, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla29, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla28, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla27, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla26, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla25, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla24, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla23, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla22, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla21, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(casilla20, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla19, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla18, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla17, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla16, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla15, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla14, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla13, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla12, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla11, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(casilla10, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla9, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla7, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(casilla1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 184, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 710, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+    
+    private void manejarClickCasilla(int fila, int col) {
+        if (fichaSeleccionada == null && casillas[fila][col].getIcon() != null && 
+            !casillas[fila][col].getText().equals("LAGO")) {
+            
+            if (!esFichaDelJugadorEnTurno(fila, col)) {
+                return;
+            }
+            
+            if (!puedeMoverseFicha(fila, col)) {
+                return;
+            }
+            
+            fichaSeleccionada = casillas[fila][col];
+            filaSeleccionada = fila;
+            colSeleccionada = col;
+            
+            casillas[fila][col].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+            
+        } else if (fichaSeleccionada != null) {
+            
+            if (fila == filaSeleccionada && col == colSeleccionada) {
+                deseleccionarFicha();
+            } else if (puedeMoverse(filaSeleccionada, colSeleccionada, fila, col)) {
+                moverFicha(filaSeleccionada, colSeleccionada, fila, col);
+                deseleccionarFicha();
+                cambiarTurno();
+            } else {
+                if (casillas[fila][col].getIcon() != null && !casillas[fila][col].getText().equals("LAGO")) {
+                    if (esFichaDelJugadorEnTurno(fila, col) && puedeMoverseFicha(fila, col)) {
+                        deseleccionarFicha();
+                        fichaSeleccionada = casillas[fila][col];
+                        filaSeleccionada = fila;
+                        colSeleccionada = col;
+                        casillas[fila][col].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+                    }
+                }
+            }
+        }
+    }
+    
+    private boolean puedeMoverse(int filaOrigen, int colOrigen, int filaDestino, int colDestino) {
+        if (casillas[filaDestino][colDestino].getText().equals("LAGO")) {
+            return false;
+        }
+        
+        boolean destinoVacio = casillas[filaDestino][colDestino].getIcon() == null;
+        boolean fichaEnemiga = false;
+        
+        if (!destinoVacio) {
+            fichaEnemiga = !esFichaDelJugadorEnTurno(filaDestino, colDestino);
+        }
+        
+        if (!destinoVacio && !fichaEnemiga) {
+            return false;
+        }
+        
+        if (fichaEnemiga && !puedeAtacar(filaOrigen, colOrigen)) {
+            return false;
+        }
+        
+        int rango = obtenerRangoFicha(filaOrigen, colOrigen);
+        
+        if (rango == 2) {
+            return puedeMoverseTorre(filaOrigen, colOrigen, filaDestino, colDestino);
+        } else {
+            return esMovimientoAdyacente(filaOrigen, colOrigen, filaDestino, colDestino);
+        }
+    }
+    
+    private boolean puedeAtacar(int fila, int col) {
+        if (fichasEnTablero[fila][col] == null) {
+            return false;
+        }
+        
+        String nombreFicha = fichasEnTablero[fila][col];
+        
+        if (nombreFicha.equals("nova blast.png")) {
+            return false;
+        }
+        if (nombreFicha.equals("pumpkin bomb.png")) {
+            return false;
+        }
+        if (nombreFicha.equals("earth.png")) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private int obtenerRangoFicha(int fila, int col) {
+        if (casillas[fila][col].getIcon() == null) {
+            return -1;
+        }
+        
+        if (fichasEnTablero[fila][col] == null) {
+            return 1;
+        }
+        
+        String nombreFicha = fichasEnTablero[fila][col];
+        
+        int inicioParentesis = nombreFicha.indexOf('(');
+        if (inicioParentesis == -1) {
+            return 1;
+        }
+        
+        int finParentesis = nombreFicha.indexOf(')');
+        if (finParentesis == -1) {
+            return 1;
+        }
+        
+        String rangoStr = nombreFicha.substring(inicioParentesis + 1, finParentesis);
+        
+        if (rangoStr.equals("1")) {
+            return 1;
+        }
+        if (rangoStr.equals("2")) {
+            return 2;
+        }
+        if (rangoStr.equals("3")) {
+            return 3;
+        }
+        if (rangoStr.equals("4")) {
+            return 4;
+        }
+        if (rangoStr.equals("5")) {
+            return 5;
+        }
+        if (rangoStr.equals("6")) {
+            return 6;
+        }
+        if (rangoStr.equals("7")) {
+            return 7;
+        }
+        if (rangoStr.equals("8")) {
+            return 8;
+        }
+        if (rangoStr.equals("9")) {
+            return 9;
+        }
+        if (rangoStr.equals("10")) {
+            return 10;
+        }
+        
+        return 1;
+    }
+    
+    private boolean esMovimientoAdyacente(int filaOrigen, int colOrigen, int filaDestino, int colDestino) {
+        int deltaFila = filaDestino - filaOrigen;
+        int deltaCol = colDestino - colOrigen;
+        
+        int deltaFilaAbs = deltaFila;
+        if (deltaFila < 0) {
+            deltaFilaAbs = -deltaFila;
+        }
+        
+        int deltaColAbs = deltaCol;
+        if (deltaCol < 0) {
+            deltaColAbs = -deltaCol;
+        }
+        
+        if (deltaFilaAbs == 1 && deltaColAbs == 0) {
+            return true;
+        }
+        if (deltaFilaAbs == 0 && deltaColAbs == 1) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private boolean puedeMoverseTorre(int filaOrigen, int colOrigen, int filaDestino, int colDestino) {
+        int deltaFila = filaDestino - filaOrigen;
+        int deltaCol = colDestino - colOrigen;
+        
+        if (deltaFila != 0 && deltaCol != 0) {
+            return false;
+        }
+        
+        return caminoLibre(filaOrigen, colOrigen, filaDestino, colDestino);
+    }
+    
+    private boolean caminoLibre(int filaOrigen, int colOrigen, int filaDestino, int colDestino) {
+        int deltaFila = filaDestino - filaOrigen;
+        int deltaCol = colDestino - colOrigen;
+        
+        int pasoFila = 0;
+        int pasoCol = 0;
+        
+        if (deltaFila != 0) {
+            if (deltaFila > 0) {
+                pasoFila = 1;
+            } else {
+                pasoFila = -1;
+            }
+        }
+        if (deltaCol != 0) {
+            if (deltaCol > 0) {
+                pasoCol = 1;
+            } else {
+                pasoCol = -1;
+            }
+        }
+        
+        int filaActual = filaOrigen + pasoFila;
+        int colActual = colOrigen + pasoCol;
+        
+        while (filaActual != filaDestino || colActual != colDestino) {
+            if (filaActual < 0 || filaActual >= 10 || colActual < 0 || colActual >= 10) {
+                return false;
+            }
+            
+            if (casillas[filaActual][colActual].getIcon() != null || 
+                casillas[filaActual][colActual].getText().equals("LAGO")) {
+                return false;
+            }
+            
+            filaActual += pasoFila;
+            colActual += pasoCol;
+        }
+        
+        return true;
+    }
+    
+    private void moverFicha(int filaOrigen, int colOrigen, int filaDestino, int colDestino) {
+        boolean hayCombate = casillas[filaDestino][colDestino].getIcon() != null;
+        
+        if (hayCombate) {
+            realizarCombate(filaOrigen, colOrigen, filaDestino, colDestino);
+        } else {
+            Icon icono = casillas[filaOrigen][colOrigen].getIcon();
+            casillas[filaDestino][colDestino].setIcon(icono);
+            casillas[filaOrigen][colOrigen].setIcon(null);
+            
+            fichasEnTablero[filaDestino][colDestino] = fichasEnTablero[filaOrigen][colOrigen];
+            fichasEnTablero[filaOrigen][colOrigen] = null;
+            
+            casillasOcupadas[filaDestino][colDestino] = true;
+            casillasOcupadas[filaOrigen][colOrigen] = false;
+        }
+    }
+    
+    private void realizarCombate(int filaAtacante, int colAtacante, int filaDefensor, int colDefensor) {
+        int rangoAtacante = obtenerRangoFicha(filaAtacante, colAtacante);
+        int rangoDefensor = obtenerRangoFicha(filaDefensor, colDefensor);
+        
+        String nombreDefensor = fichasEnTablero[filaDefensor][colDefensor];
+        
+        System.out.println("COMBATE: Rango " + rangoAtacante + " vs " + nombreDefensor);
+        
+        boolean atacanteGana = false;
+        boolean defensorGana = false;
+        boolean empate = false;
+        
+        boolean defensorEsBomba = false;
+        if (nombreDefensor.equals("nova blast.png") || nombreDefensor.equals("pumpkin bomb.png")) {
+            defensorEsBomba = true;
+        }
+        
+        if (defensorEsBomba) {
+            if (rangoAtacante == 3) {
+                atacanteGana = true;
+                System.out.println("Rango 3 desactiva la bomba");
+            } else {
+                defensorGana = true;
+                System.out.println("La bomba mata al atacante");
+            }
+        } else {
+            if (rangoAtacante == 1) {
+                if (rangoDefensor == 10) {
+                    atacanteGana = true;
+                } else {
+                    defensorGana = true;
+                }
+            } else if (rangoDefensor == 1) {
+                atacanteGana = true;
+            } else if (rangoAtacante == rangoDefensor) {
+                empate = true;
+            } else if (rangoAtacante > rangoDefensor) {
+                atacanteGana = true;
+            } else {
+                defensorGana = true;
+            }
+        }
+        
+        if (atacanteGana) {
+            Icon icono = casillas[filaAtacante][colAtacante].getIcon();
+            casillas[filaDefensor][colDefensor].setIcon(icono);
+            casillas[filaAtacante][colAtacante].setIcon(null);
+            
+            fichasEnTablero[filaDefensor][colDefensor] = fichasEnTablero[filaAtacante][colAtacante];
+            fichasEnTablero[filaAtacante][colAtacante] = null;
+            
+            casillasOcupadas[filaDefensor][colDefensor] = true;
+            casillasOcupadas[filaAtacante][colAtacante] = false;
+            
+            if (defensorEsBomba) {
+                System.out.println("Atacante GANA - Rango " + rangoAtacante + " desactiva la bomba");
+            } else {
+                System.out.println("Atacante GANA - Rango " + rangoAtacante + " vence a Rango " + rangoDefensor);
+            }
+            
+        } else if (defensorGana) {
+            casillas[filaAtacante][colAtacante].setIcon(null);
+            fichasEnTablero[filaAtacante][colAtacante] = null;
+            casillasOcupadas[filaAtacante][colAtacante] = false;
+            
+            if (defensorEsBomba) {
+                System.out.println("Defensor GANA - La bomba mata a Rango " + rangoAtacante);
+            } else {
+                System.out.println("Defensor GANA - Rango " + rangoDefensor + " vence a Rango " + rangoAtacante);
+            }
+            
+        } else if (empate) {
+            casillas[filaAtacante][colAtacante].setIcon(null);
+            casillas[filaDefensor][colDefensor].setIcon(null);
+            
+            fichasEnTablero[filaAtacante][colAtacante] = null;
+            fichasEnTablero[filaDefensor][colDefensor] = null;
+            
+            casillasOcupadas[filaAtacante][colAtacante] = false;
+            casillasOcupadas[filaDefensor][colDefensor] = false;
+            
+            System.out.println("EMPATE - Ambas fichas Rango " + rangoAtacante + " eliminadas");
+        }
+    }
+    
+    private void deseleccionarFicha() {
+        if (fichaSeleccionada != null) {
+            fichaSeleccionada.setBorder(null);
+            fichaSeleccionada = null;
+            filaSeleccionada = -1;
+            colSeleccionada = -1;
+        }
+    }
+    
+    private void colocarFichasEquipo(boolean esVillano) {
+        int filaInicio;
+        if (esVillano) {
+            filaInicio = 0;
+        } else {
+            filaInicio = 6;
+        }
+        
+        String rutaBomba;
+        if (esVillano) {
+            rutaBomba = "/imagenes/villians/pumpkin bomb.png";
+        } else {
+            rutaBomba = "/imagenes/heroes/nova blast.png";
+        }
+        
+        String rutaEarth = "/imagenes/heroes/earth.png";
+        
+        int filaEarth;
+        if (esVillano) {
+            filaEarth = 0;
+        } else {
+            filaEarth = 9;
+        }
+        int colEarth = 1 + random.nextInt(8);
+        colocarImagen(casillas[filaEarth][colEarth], rutaEarth);
+        casillasOcupadas[filaEarth][colEarth] = true;
+        
+        int[][] posicionesBombas = new int[3][2];
+        int numBombas = 0;
+        
+        if (filaEarth > 0 && !esVillano) {
+            posicionesBombas[numBombas][0] = filaEarth - 1;
+            posicionesBombas[numBombas][1] = colEarth;
+            numBombas++;
+        } else if (filaEarth < 9 && esVillano) {
+            posicionesBombas[numBombas][0] = filaEarth + 1;
+            posicionesBombas[numBombas][1] = colEarth;
+            numBombas++;
+        }
+        
+        if (colEarth > 0) {
+            posicionesBombas[numBombas][0] = filaEarth;
+            posicionesBombas[numBombas][1] = colEarth - 1;
+            numBombas++;
+        }
+        
+        if (colEarth < 9) {
+            posicionesBombas[numBombas][0] = filaEarth;
+            posicionesBombas[numBombas][1] = colEarth + 1;
+            numBombas++;
+        }
+        
+        for (int i = 0; i < numBombas; i++) {
+            int fila = posicionesBombas[i][0];
+            int col = posicionesBombas[i][1];
+            colocarImagen(casillas[fila][col], rutaBomba);
+            casillasOcupadas[fila][col] = true;
+        }
+        
+        int bombasRestantes = 6 - numBombas;
+        int[] filasUltimas;
+        if (esVillano) {
+            filasUltimas = new int[]{0, 1};
+        } else {
+            filasUltimas = new int[]{8, 9};
+        }
+        
+        while (bombasRestantes > 0) {
+            int filaIndex = random.nextInt(2);
+            int fila = filasUltimas[filaIndex];
+            int col = random.nextInt(10);
+            if (!casillasOcupadas[fila][col] && !esLago(fila, col)) {
+                colocarImagen(casillas[fila][col], rutaBomba);
+                casillasOcupadas[fila][col] = true;
+                bombasRestantes--;
+            }
+        }
+        
+        String[] imagenes;
+        if (esVillano) {
+            imagenes = imagenesVillanos;
+        } else {
+            imagenes = imagenesHeroes;
+        }
+        String[] fichasRango2 = new String[11];
+        int contadorRango2 = 0;
+        
+        for (int i = 0; i < imagenes.length; i++) {
+            if (imagenes[i].contains("(2).png")) {
+                fichasRango2[contadorRango2] = imagenes[i];
+                contadorRango2++;
+            }
+        }
+        
+        System.out.println("Fichas de rango 2 encontradas: " + contadorRango2);
+        
+        int[] filasPrimeras;
+        if (esVillano) {
+            filasPrimeras = new int[]{2, 3};
+        } else {
+            filasPrimeras = new int[]{6, 7};
+        }
+        int fichasRango2Colocadas = 0;
+        
+        while (fichasRango2Colocadas < contadorRango2) {
+            int filaIndex = random.nextInt(2);
+            int fila = filasPrimeras[filaIndex];
+            int col = random.nextInt(10);
+            if (!casillasOcupadas[fila][col] && !esLago(fila, col)) {
+                String carpeta;
+                if (esVillano) {
+                    carpeta = "villians/";
+                } else {
+                    carpeta = "heroes/";
+                }
+                String rutaImagen = "/imagenes/" + carpeta + fichasRango2[fichasRango2Colocadas];
+                colocarImagen(casillas[fila][col], rutaImagen);
+                casillasOcupadas[fila][col] = true;
+                fichasRango2Colocadas++;
+            }
+        }
+        
+        int fichasRestantesTotal = imagenes.length - contadorRango2;
+        String[] fichasRestantes = new String[fichasRestantesTotal];
+        int contadorRestantes = 0;
+        
+        for (int i = 0; i < imagenes.length; i++) {
+            if (!imagenes[i].contains("(2).png")) {
+                fichasRestantes[contadorRestantes] = imagenes[i];
+                contadorRestantes++;
+            }
+        }
+        
+        System.out.println("Fichas restantes: " + contadorRestantes + " de " + fichasRestantesTotal);
+        
+        for (int i = contadorRestantes - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+            String temp = fichasRestantes[i];
+            fichasRestantes[i] = fichasRestantes[j];
+            fichasRestantes[j] = temp;
+        }
+        
+        int fichasRestantesColocadas = 0;
+        
+        for (int i = filaInicio; i < filaInicio + 4 && fichasRestantesColocadas < contadorRestantes; i++) {
+            for (int j = 0; j < 10 && fichasRestantesColocadas < contadorRestantes; j++) {
+                if (!casillasOcupadas[i][j] && !esLago(i, j)) {
+                    if (fichasRestantesColocadas < contadorRestantes) {
+                        String carpeta2;
+                        if (esVillano) {
+                            carpeta2 = "villians/";
+                        } else {
+                            carpeta2 = "heroes/";
+                        }
+                        String rutaImagen = "/imagenes/" + carpeta2 + fichasRestantes[fichasRestantesColocadas];
+                        colocarImagen(casillas[i][j], rutaImagen);
+                        casillasOcupadas[i][j] = true;
+                        fichasRestantesColocadas++;
+                    }
+                }
+            }
+        }
+    }
+    
+    private boolean esLago(int fila, int col) {
+        return (fila == 4 || fila == 5) && (col == 2 || col == 3 || col == 6 || col == 7);
+    }
+    
+    private void colocarImagen(JButton casilla, String rutaImagen) {
+        int fila = -1;
+        int col = -1;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (casillas[i][j] == casilla) {
+                    fila = i;
+                    col = j;
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Tablero().setVisible(true);
+            if (fila != -1) {
+                break;
             }
+        }
+        
+        String nombreArchivo = rutaImagen;
+        if (rutaImagen.contains("/")) {
+            nombreArchivo = rutaImagen.substring(rutaImagen.lastIndexOf("/") + 1);
+        }
+        
+        if (fila != -1 && col != -1) {
+            fichasEnTablero[fila][col] = nombreArchivo;
+        }
+        
+        if (rutaImagen.equals("/imagenes/heroes/earth.png") || 
+            rutaImagen.equals("/imagenes/heroes/nova blast.png") || 
+            rutaImagen.equals("/imagenes/villians/pumpkin bomb.png")) {
+            ImageIcon icono = new ImageIcon(getClass().getResource(rutaImagen));
+            if (icono.getImageLoadStatus() == MediaTracker.COMPLETE) {
+                Image imagen = icono.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+                casilla.setIcon(new ImageIcon(imagen));
+            } else {
+                casilla.setText("?");
+            }
+        } else {
+            ImageIcon icono = new ImageIcon(getClass().getResource(rutaImagen));
+            if (icono.getImageLoadStatus() == MediaTracker.COMPLETE) {
+                Image imagen = icono.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+                casilla.setIcon(new ImageIcon(imagen));
+            } else {
+                casilla.setText("?");
+            }
+        }
+    }
+    
+    private boolean esFichaDelJugadorEnTurno(int fila, int col) {
+        if (fichasEnTablero[fila][col] == null) {
+            return false;
+        }
+        
+        String nombreFicha = fichasEnTablero[fila][col];
+        
+        boolean esHéroe = false;
+        boolean esVillano = false;
+        
+        if (nombreFicha.startsWith("heroe")) {
+            esHéroe = true;
+        }
+        if (nombreFicha.startsWith("villian")) {
+            esVillano = true;
+        }
+        if (nombreFicha.equals("nova blast.png")) {
+            esHéroe = true;
+        }
+        if (nombreFicha.equals("pumpkin bomb.png")) {
+            esVillano = true;
+        }
+        if (nombreFicha.equals("earth.png")) {
+            if (fila >= 6) {
+                esHéroe = true;
+            } else {
+                esVillano = true;
+            }
+        }
+        
+        if (turnoHeroes && esHéroe) {
+            return true;
+        }
+        if (!turnoHeroes && esVillano) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private void cambiarTurno() {
+        turnoHeroes = !turnoHeroes;
+        
+        if (turnoHeroes) {
+            labelTurno.setText("TURNO: HÉROES");
+            labelTurno.setForeground(Color.GREEN);
+        } else {
+            labelTurno.setText("TURNO: VILLANOS");
+            labelTurno.setForeground(Color.RED);
+        }
+    }
+    
+    private boolean puedeMoverseFicha(int fila, int col) {
+        if (fichasEnTablero[fila][col] == null) {
+            return false;
+        }
+        
+        String nombreFicha = fichasEnTablero[fila][col];
+        
+        if (nombreFicha.equals("nova blast.png")) {
+            return false;
+        }
+        if (nombreFicha.equals("pumpkin bomb.png")) {
+            return false;
+        }
+        
+        if (nombreFicha.equals("earth.png")) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            Tablero tablero = new Tablero();
+            tablero.setVisible(true);
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton casilla1;
-    private javax.swing.JButton casilla10;
-    private javax.swing.JButton casilla100;
-    private javax.swing.JButton casilla11;
-    private javax.swing.JButton casilla12;
-    private javax.swing.JButton casilla13;
-    private javax.swing.JButton casilla14;
-    private javax.swing.JButton casilla15;
-    private javax.swing.JButton casilla16;
-    private javax.swing.JButton casilla17;
-    private javax.swing.JButton casilla18;
-    private javax.swing.JButton casilla19;
-    private javax.swing.JButton casilla2;
-    private javax.swing.JButton casilla20;
-    private javax.swing.JButton casilla21;
-    private javax.swing.JButton casilla22;
-    private javax.swing.JButton casilla23;
-    private javax.swing.JButton casilla24;
-    private javax.swing.JButton casilla25;
-    private javax.swing.JButton casilla26;
-    private javax.swing.JButton casilla27;
-    private javax.swing.JButton casilla28;
-    private javax.swing.JButton casilla29;
-    private javax.swing.JButton casilla3;
-    private javax.swing.JButton casilla30;
-    private javax.swing.JButton casilla31;
-    private javax.swing.JButton casilla32;
-    private javax.swing.JButton casilla33;
-    private javax.swing.JButton casilla34;
-    private javax.swing.JButton casilla35;
-    private javax.swing.JButton casilla36;
-    private javax.swing.JButton casilla37;
-    private javax.swing.JButton casilla38;
-    private javax.swing.JButton casilla39;
-    private javax.swing.JButton casilla4;
-    private javax.swing.JButton casilla40;
-    private javax.swing.JButton casilla41;
-    private javax.swing.JButton casilla42;
-    private javax.swing.JButton casilla43;
-    private javax.swing.JButton casilla44;
-    private javax.swing.JButton casilla45;
-    private javax.swing.JButton casilla46;
-    private javax.swing.JButton casilla47;
-    private javax.swing.JButton casilla48;
-    private javax.swing.JButton casilla49;
-    private javax.swing.JButton casilla5;
-    private javax.swing.JButton casilla50;
-    private javax.swing.JButton casilla51;
-    private javax.swing.JButton casilla52;
-    private javax.swing.JButton casilla53;
-    private javax.swing.JButton casilla54;
-    private javax.swing.JButton casilla55;
-    private javax.swing.JButton casilla56;
-    private javax.swing.JButton casilla57;
-    private javax.swing.JButton casilla58;
-    private javax.swing.JButton casilla59;
-    private javax.swing.JButton casilla6;
-    private javax.swing.JButton casilla60;
-    private javax.swing.JButton casilla61;
-    private javax.swing.JButton casilla62;
-    private javax.swing.JButton casilla63;
-    private javax.swing.JButton casilla64;
-    private javax.swing.JButton casilla65;
-    private javax.swing.JButton casilla66;
-    private javax.swing.JButton casilla67;
-    private javax.swing.JButton casilla68;
-    private javax.swing.JButton casilla69;
-    private javax.swing.JButton casilla7;
-    private javax.swing.JButton casilla70;
-    private javax.swing.JButton casilla71;
-    private javax.swing.JButton casilla72;
-    private javax.swing.JButton casilla73;
-    private javax.swing.JButton casilla74;
-    private javax.swing.JButton casilla75;
-    private javax.swing.JButton casilla76;
-    private javax.swing.JButton casilla77;
-    private javax.swing.JButton casilla78;
-    private javax.swing.JButton casilla79;
-    private javax.swing.JButton casilla8;
-    private javax.swing.JButton casilla80;
-    private javax.swing.JButton casilla81;
-    private javax.swing.JButton casilla82;
-    private javax.swing.JButton casilla83;
-    private javax.swing.JButton casilla84;
-    private javax.swing.JButton casilla85;
-    private javax.swing.JButton casilla86;
-    private javax.swing.JButton casilla87;
-    private javax.swing.JButton casilla88;
-    private javax.swing.JButton casilla89;
-    private javax.swing.JButton casilla9;
-    private javax.swing.JButton casilla90;
-    private javax.swing.JButton casilla91;
-    private javax.swing.JButton casilla92;
-    private javax.swing.JButton casilla93;
-    private javax.swing.JButton casilla94;
-    private javax.swing.JButton casilla95;
-    private javax.swing.JButton casilla96;
-    private javax.swing.JButton casilla97;
-    private javax.swing.JButton casilla98;
-    private javax.swing.JButton casilla99;
-    private javax.swing.JPanel jPanel1;
-    // End of variables declaration//GEN-END:variables
 }
