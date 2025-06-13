@@ -143,10 +143,9 @@ public class MenuJuego extends javax.swing.JFrame {
 
     private void btnStrategoMarvelActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            System.out.println("Botón Stratego Marvel presionado");
             Tablero tablero = new Tablero();
             tablero.setVisible(true);
-            this.dispose(); // Cerrar el menú actual
+            this.dispose();
         } catch (Exception e) {
             System.err.println("Error al abrir el tablero: " + e.getMessage());
             e.printStackTrace();

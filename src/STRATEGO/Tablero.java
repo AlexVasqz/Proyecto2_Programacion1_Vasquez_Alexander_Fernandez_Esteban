@@ -42,7 +42,7 @@ public class Tablero extends JFrame {
         
         imagenesHeroes = new String[] {
             "heroe 1 (10).png", "heroe 2 (9).png", "heroe 3 (8).png", "heroe 4 (8).png",
-            "heroe 5 (7).png", "heroe 6 (6).png", "heroe 7 (7).png", " heroe 8 (6).png",
+            "heroe 5 (7).png", "heroe 6 (6).png", "heroe 7 (7).png", "heroe 8 (6).png",
             "heroe 9 (6).png", "heroe 10  (6).png", "heroe 11 (6).png", "heroe 12 (5).png",
             "heroe 13 (5).png", "heroe 14 (5).png", "heroe 15 (5).png", "heroe 16 (4).png",
             "heroe 17 (4).png", "heroe 18 (4).png", "heroe 19 (4).png", "heroe 20 (3).png",
@@ -354,8 +354,6 @@ public class Tablero extends JFrame {
         
         String nombreDefensor = fichasEnTablero[filaDefensor][colDefensor];
         
-        System.out.println("COMBATE: Rango " + rangoAtacante + " vs " + nombreDefensor);
-        
         boolean atacanteGana = false;
         boolean defensorGana = false;
         boolean empate = false;
@@ -368,10 +366,8 @@ public class Tablero extends JFrame {
         if (defensorEsBomba) {
             if (rangoAtacante == 3) {
                 atacanteGana = true;
-                System.out.println("Rango 3 desactiva la bomba");
             } else {
                 defensorGana = true;
-                System.out.println("La bomba mata al atacante");
             }
         } else {
             if (rangoAtacante == 1) {
@@ -402,22 +398,10 @@ public class Tablero extends JFrame {
             casillasOcupadas[filaDefensor][colDefensor] = true;
             casillasOcupadas[filaAtacante][colAtacante] = false;
             
-            if (defensorEsBomba) {
-                System.out.println("Atacante GANA - Rango " + rangoAtacante + " desactiva la bomba");
-            } else {
-                System.out.println("Atacante GANA - Rango " + rangoAtacante + " vence a Rango " + rangoDefensor);
-            }
-            
         } else if (defensorGana) {
             casillas[filaAtacante][colAtacante].setIcon(null);
             fichasEnTablero[filaAtacante][colAtacante] = null;
             casillasOcupadas[filaAtacante][colAtacante] = false;
-            
-            if (defensorEsBomba) {
-                System.out.println("Defensor GANA - La bomba mata a Rango " + rangoAtacante);
-            } else {
-                System.out.println("Defensor GANA - Rango " + rangoDefensor + " vence a Rango " + rangoAtacante);
-            }
             
         } else if (empate) {
             casillas[filaAtacante][colAtacante].setIcon(null);
@@ -428,8 +412,6 @@ public class Tablero extends JFrame {
             
             casillasOcupadas[filaAtacante][colAtacante] = false;
             casillasOcupadas[filaDefensor][colDefensor] = false;
-            
-            System.out.println("EMPATE - Ambas fichas Rango " + rangoAtacante + " eliminadas");
         }
     }
     
@@ -536,8 +518,6 @@ public class Tablero extends JFrame {
             }
         }
         
-        System.out.println("Fichas de rango 2 encontradas: " + contadorRango2);
-        
         int[] filasPrimeras;
         if (esVillano) {
             filasPrimeras = new int[]{2, 3};
@@ -574,8 +554,6 @@ public class Tablero extends JFrame {
                 contadorRestantes++;
             }
         }
-        
-        System.out.println("Fichas restantes: " + contadorRestantes + " de " + fichasRestantesTotal);
         
         for (int i = contadorRestantes - 1; i > 0; i--) {
             int j = random.nextInt(i + 1);
