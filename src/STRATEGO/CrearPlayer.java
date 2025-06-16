@@ -20,8 +20,8 @@ public class CrearPlayer extends javax.swing.JFrame {
         lblInstrucciones = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
-        usuarioField = new javax.swing.JTextField();
-        passwordField = new javax.swing.JPasswordField();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
         btnCrear = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -51,14 +51,14 @@ public class CrearPlayer extends javax.swing.JFrame {
         lblPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblPassword.setText("Password:");
 
-        usuarioField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        usuarioField.addActionListener(new java.awt.event.ActionListener() {
+        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usuarioFieldActionPerformed(evt);
+                txtUsernameActionPerformed(evt);
             }
         });
 
-        passwordField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         btnCrear.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnCrear.setText("CREAR JUGADOR");
@@ -91,8 +91,8 @@ public class CrearPlayer extends javax.swing.JFrame {
                     .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(passwordField, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                    .addComponent(usuarioField))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(txtUsername))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(275, 275, 275)
@@ -115,11 +115,11 @@ public class CrearPlayer extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usuarioField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -143,8 +143,8 @@ public class CrearPlayer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        String username = usuarioField.getText().trim();
-        String password = new String(passwordField.getPassword());
+        String username = txtUsername.getText().trim();
+        String password = new String(txtPassword.getPassword());
 
         if (username.isEmpty() || password.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this,
@@ -179,16 +179,16 @@ public class CrearPlayer extends javax.swing.JFrame {
                     dispose();
                 } else {
 
-                    usuarioField.setText("");
-                    usuarioField.requestFocus();
+                    txtUsername.setText("");
+                    txtUsername.requestFocus();
                 }
             } else if (password.length() != 5) {
                 javax.swing.JOptionPane.showMessageDialog(this,
                         "La contraseña debe tener exactamente 5 caracteres.\nActualmente tiene " + password.length() + " caracteres.",
                         "Error en contraseña",
                         javax.swing.JOptionPane.ERROR_MESSAGE);
-                passwordField.setText("");
-                passwordField.requestFocus();
+                txtPassword.setText("");
+                txtPassword.requestFocus();
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this,
                         "Error al crear el jugador. Intente nuevamente.",
@@ -204,9 +204,9 @@ public class CrearPlayer extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void usuarioFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioFieldActionPerformed
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_usuarioFieldActionPerformed
+    }//GEN-LAST:event_txtUsernameActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -216,7 +216,7 @@ public class CrearPlayer extends javax.swing.JFrame {
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUsuario;
-    private javax.swing.JPasswordField passwordField;
-    private javax.swing.JTextField usuarioField;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

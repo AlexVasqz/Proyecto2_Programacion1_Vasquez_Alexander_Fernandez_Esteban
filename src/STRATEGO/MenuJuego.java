@@ -3,7 +3,7 @@ package STRATEGO;
 import javax.swing.JOptionPane;
 
 public class MenuJuego extends javax.swing.JFrame {
-    
+
     FondoPanel fondo = new FondoPanel("/imagenes/background.jpeg");
     private Player jugadorActual;
 
@@ -15,7 +15,7 @@ public class MenuJuego extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setCurrentPlayer(player);
     }
-    
+
     public void setCurrentPlayer(Player player) {
         this.jugadorActual = player;
         if (jugadorActual != null) {
@@ -46,6 +46,7 @@ public class MenuJuego extends javax.swing.JFrame {
 
         btnStrategoMarvel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnStrategoMarvel.setText("STRATEGO – MARVEL HEROES!");
+        btnStrategoMarvel.setPreferredSize(new java.awt.Dimension(200, 80));
         btnStrategoMarvel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStrategoMarvelActionPerformed(evt);
@@ -100,8 +101,8 @@ public class MenuJuego extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(100, 100, 100)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnMiPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(btnStrategoMarvel, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                    .addComponent(btnMiPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnStrategoMarvel, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUniversoMarvel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,10 +151,10 @@ public class MenuJuego extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println("Error al abrir el tablero: " + e.getMessage());
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, 
-                "Error al abrir el tablero: " + e.getMessage(), 
-                "Error", 
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Error al abrir el tablero: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -162,7 +163,10 @@ public class MenuJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
     private void btnMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiPerfilActionPerformed
-        // MI PERFIL - Sin funcionalidad por ahora
+        //No lo reidirige
+        MiPerfil miPerfil = new MiPerfil();
+        miPerfil.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnMiPerfilActionPerformed
 
     private void btnUniversoMarvelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUniversoMarvelActionPerformed
