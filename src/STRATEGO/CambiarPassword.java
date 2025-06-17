@@ -4,17 +4,23 @@
  */
 package STRATEGO;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author esteb
  */
 public class CambiarPassword extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CambiarPassword
-     */
-    public CambiarPassword() {
+    private Player jugadorActual;
+    FondoPanel fondo = new FondoPanel("/imagenes/background.jpeg");
+
+    public CambiarPassword(Player jugadorActual) {
+        this.setContentPane(fondo);
+        this.jugadorActual = jugadorActual;
         initComponents();
+        jPanel1.setOpaque(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -44,6 +50,11 @@ public class CambiarPassword extends javax.swing.JFrame {
 
         btnConfirmar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         btnVolver.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnVolver.setText("Volver");
@@ -130,14 +141,77 @@ public class CambiarPassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        MiPerfil miperfil = new MiPerfil();
+        MiPerfil miperfil = new MiPerfil(jugadorActual);
         miperfil.setVisible(true);
         miperfil.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void txtActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtActualActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtActualActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+
+        if (jugadorActual == null) {
+            JOptionPane.showMessageDialog(null, "Error, No hay un jugador activo",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String passwordActual = txtActual.getText().trim();
+        String passwordNueva = txtNueva.getText().trim();
+
+        if (passwordActual.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null,"Por favor, ingrese su contraseña actual.", "Campo Vacio", JOptionPane.WARNING_MESSAGE);
+            txtActual.requestFocus();
+            return;
+        }
+
+        if (passwordNueva.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese su contraseña nueva.", "Campo Vacio", JOptionPane.WARNING_MESSAGE);
+            txtNueva.requestFocus();
+            return;
+        }
+        if (!passwordActual.equals(jugadorActual.getPassword())) {
+            JOptionPane.showMessageDialog(null,"La contraseña actual es incorrecta.","Error de Autenticación",JOptionPane.ERROR_MESSAGE);
+            txtActual.setText("");
+            txtActual.requestFocus();
+            return;
+        }
+        if (passwordNueva.equals(passwordActual)) {
+            
+            JOptionPane.showMessageDialog(null,"La nueva contraseña debe ser diferente a la actual.","Contraseña Inválida",JOptionPane.WARNING_MESSAGE);
+            
+            txtNueva.setText("");
+            txtNueva.requestFocus();
+            return;
+            
+        }
+        
+        if (passwordNueva.length() < 4) {
+            
+            int option = JOptionPane.showConfirmDialog(null,"La contraseña es muy corta (menos de 4 caracteres).\n¿Desea continuar de todos modos?","Contraseña Débil",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+
+            if (option != JOptionPane.YES_OPTION) {
+                txtNueva.requestFocus();
+                return;
+            }
+            
+        }
+        
+        jugadorActual.setPassword(passwordNueva);
+        
+        JOptionPane.showMessageDialog(null,"Contraseña cambiada exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
+        
+        txtActual.setText("");
+        txtNueva.setText("");
+        
+        MiPerfil miperfil = new MiPerfil(jugadorActual);
+        miperfil.setVisible(true);
+        miperfil.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,11 +241,6 @@ public class CambiarPassword extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CambiarPassword().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -163,10 +163,16 @@ public class MenuJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
     private void btnMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiPerfilActionPerformed
-        //No lo reidirige
-        MiPerfil miPerfil = new MiPerfil();
-        miPerfil.setVisible(true);
-        this.dispose();
+        try {
+            System.out.println("Abriendo Mi Perfil para: " + jugadorActual.getUsername());
+            MiPerfil miPerfil = new MiPerfil(jugadorActual);
+            miPerfil.setVisible(true);
+            this.dispose();
+        } catch (Exception e) {
+            System.err.println("Error al abrir Mi Perfil: " + e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnMiPerfilActionPerformed
 
     private void btnUniversoMarvelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUniversoMarvelActionPerformed

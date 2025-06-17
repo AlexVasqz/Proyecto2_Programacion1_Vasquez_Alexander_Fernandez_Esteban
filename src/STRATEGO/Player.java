@@ -24,6 +24,10 @@ public class Player {
         return password;
     }
     
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
     public int getPuntos() {
         return puntos;
     }

@@ -10,16 +10,16 @@ package STRATEGO;
  */
 public class MiPerfil extends javax.swing.JFrame {
 
+    private Player jugadorActual;
     FondoPanel fondo = new FondoPanel("/imagenes/background.jpeg");
     
-    public MiPerfil() {
+    public MiPerfil(Player jugadorActual) {
         this.setContentPane(fondo);
+        this.jugadorActual = jugadorActual;
         initComponents();
         jPanel1.setOpaque(false);
-    }
-
-    MiPerfil(Player jugadorActual) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        setLocationRelativeTo(null);
+        lblJugador.setText("Jugador: " + jugadorActual.getUsername());
     }
 
     /**
@@ -36,6 +36,7 @@ public class MiPerfil extends javax.swing.JFrame {
         btnBorrarCuenta = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         btnCambiarPassword = new javax.swing.JButton();
+        lblJugador = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,18 +58,29 @@ public class MiPerfil extends javax.swing.JFrame {
 
         btnCambiarPassword.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         btnCambiarPassword.setText("Cambiar Contraseña");
+        btnCambiarPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarPasswordActionPerformed(evt);
+            }
+        });
+
+        lblJugador.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblJugador.setForeground(new java.awt.Color(255, 255, 255));
+        lblJugador.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblJugador.setText("Jugador:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(300, Short.MAX_VALUE)
+                .addContainerGap(302, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBorrarCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCambiarPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCambiarPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(lblJugador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(298, 298, 298))
         );
         jPanel1Layout.setVerticalGroup(
@@ -76,20 +88,22 @@ public class MiPerfil extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89)
+                .addGap(18, 18, 18)
+                .addComponent(lblJugador)
+                .addGap(43, 43, 43)
                 .addComponent(btnCambiarPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnBorrarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,8 +114,16 @@ public class MiPerfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        
+        MenuJuego menujuego = new MenuJuego(jugadorActual);
+        menujuego.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnCambiarPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarPasswordActionPerformed
+        CambiarPassword cambiar = new CambiarPassword(jugadorActual);
+        cambiar.setVisible(true);
+        cambiar.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnCambiarPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,12 +152,6 @@ public class MiPerfil extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MiPerfil().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -143,6 +159,7 @@ public class MiPerfil extends javax.swing.JFrame {
     private javax.swing.JButton btnCambiarPassword;
     private javax.swing.JButton btnVolver;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblJugador;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
 }
