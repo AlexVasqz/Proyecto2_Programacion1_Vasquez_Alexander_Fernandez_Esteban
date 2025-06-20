@@ -3,7 +3,7 @@ package STRATEGO;
 import javax.swing.JOptionPane;
 
 public class MenuJuego extends javax.swing.JFrame {
-    
+
     FondoPanel fondo = new FondoPanel("/imagenes/background.jpeg");
     private Player jugadorActual;
 
@@ -15,7 +15,7 @@ public class MenuJuego extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setCurrentPlayer(player);
     }
-    
+
     public void setCurrentPlayer(Player player) {
         this.jugadorActual = player;
         if (jugadorActual != null) {
@@ -46,6 +46,7 @@ public class MenuJuego extends javax.swing.JFrame {
 
         btnStrategoMarvel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnStrategoMarvel.setText("STRATEGO – MARVEL HEROES!");
+        btnStrategoMarvel.setPreferredSize(new java.awt.Dimension(200, 80));
         btnStrategoMarvel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStrategoMarvelActionPerformed(evt);
@@ -100,8 +101,8 @@ public class MenuJuego extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(100, 100, 100)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnMiPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(btnStrategoMarvel, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                    .addComponent(btnMiPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnStrategoMarvel, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUniversoMarvel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -143,16 +144,17 @@ public class MenuJuego extends javax.swing.JFrame {
 
     private void btnStrategoMarvelActionPerformed(java.awt.event.ActionEvent evt) {
         try {
+            System.out.println("Botón Stratego Marvel presionado");
             Tablero tablero = new Tablero();
             tablero.setVisible(true);
-            this.dispose();
+            this.dispose(); // Cerrar el menú actual
         } catch (Exception e) {
             System.err.println("Error al abrir el tablero: " + e.getMessage());
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, 
-                "Error al abrir el tablero: " + e.getMessage(), 
-                "Error", 
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Error al abrir el tablero: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -161,7 +163,16 @@ public class MenuJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
     private void btnMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiPerfilActionPerformed
-        // MI PERFIL - Sin funcionalidad por ahora
+        try {
+            System.out.println("Abriendo Mi Perfil para: " + jugadorActual.getUsername());
+            MiPerfil miPerfil = new MiPerfil(jugadorActual);
+            miPerfil.setVisible(true);
+            this.dispose();
+        } catch (Exception e) {
+            System.err.println("Error al abrir Mi Perfil: " + e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnMiPerfilActionPerformed
 
     private void btnUniversoMarvelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUniversoMarvelActionPerformed
@@ -169,9 +180,18 @@ public class MenuJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUniversoMarvelActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // CERRAR SESION - Regresa al menu principal
+        int respuesta = JOptionPane.showConfirmDialog(
+        null,
+        "¿Está seguro de que desea cerrar sesión?",
+        "Confirmar cierre de sesión",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE
+    );
+    
+    if (respuesta == JOptionPane.YES_OPTION) {
         new menu().setVisible(true);
         dispose();
+    }
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
