@@ -180,9 +180,18 @@ public class MenuJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUniversoMarvelActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // CERRAR SESION - Regresa al menu principal
+        int respuesta = JOptionPane.showConfirmDialog(
+        null,
+        "¿Está seguro de que desea cerrar sesión?",
+        "Confirmar cierre de sesión",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE
+    );
+    
+    if (respuesta == JOptionPane.YES_OPTION) {
         new menu().setVisible(true);
         dispose();
+    }
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
