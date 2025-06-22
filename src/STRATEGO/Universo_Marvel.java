@@ -4,20 +4,24 @@
  */
 package STRATEGO;
 
+import java.awt.Color;
+import javax.swing.JLabel;
+
 /**
  *
  * @author esteb
  */
 public class Universo_Marvel extends javax.swing.JFrame {
-    
+
     FondoPanel fondo = new FondoPanel("/imagenes/background.jpeg");
     private Player jugadorActual;
-    
+
     public Universo_Marvel(Player jugadorActual) {
         this.setContentPane(fondo);
         this.jugadorActual = jugadorActual;
         initComponents();
         jPanel1.setOpaque(false);
+        setupRankingLabels();
     }
 
     /**
@@ -34,6 +38,15 @@ public class Universo_Marvel extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        panelRanking = new javax.swing.JPanel();
+        lblRanking1 = new javax.swing.JLabel();
+        lblRanking2 = new javax.swing.JLabel();
+        lblRanking3 = new javax.swing.JLabel();
+        lblRanking4 = new javax.swing.JLabel();
+        lblRanking5 = new javax.swing.JLabel();
+        lblRanking6 = new javax.swing.JLabel();
+        lblRanking7 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,7 +73,75 @@ public class Universo_Marvel extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Century", 2, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Ranking");
+        jLabel2.setText("Batallas");
+
+        lblRanking1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblRanking1.setText("1.");
+
+        lblRanking2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblRanking2.setText("2.");
+
+        lblRanking3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblRanking3.setText("3.");
+
+        lblRanking4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblRanking4.setText("4.");
+
+        lblRanking5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblRanking5.setText("5.");
+
+        lblRanking6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblRanking6.setText("6.");
+
+        lblRanking7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblRanking7.setText("7.");
+
+        javax.swing.GroupLayout panelRankingLayout = new javax.swing.GroupLayout(panelRanking);
+        panelRanking.setLayout(panelRankingLayout);
+        panelRankingLayout.setHorizontalGroup(
+            panelRankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRankingLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelRankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblRanking1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addComponent(lblRanking2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblRanking3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblRanking4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblRanking5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblRanking6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblRanking7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelRankingLayout.setVerticalGroup(
+            panelRankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRankingLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblRanking1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRanking2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRanking3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRanking4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRanking5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRanking6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRanking7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -68,18 +149,22 @@ public class Universo_Marvel extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(301, 301, 301)
-                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                 .addGap(302, 302, 302))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(350, 350, 350))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelRanking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,7 +175,11 @@ public class Universo_Marvel extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 316, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelRanking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -103,12 +192,54 @@ public class Universo_Marvel extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void setupRankingLabels() {
+        Player[] activeUsers = Usuarios.getActiveUsers();
+
+        // Sort users by points using bubble sort (sin Collections.sort)
+        for (int i = 0; i < activeUsers.length - 1; i++) {
+            for (int j = 0; j < activeUsers.length - i - 1; j++) {
+                if (activeUsers[j].getPuntos() < activeUsers[j + 1].getPuntos()) {
+                    Player temp = activeUsers[j];
+                    activeUsers[j] = activeUsers[j + 1];
+                    activeUsers[j + 1] = temp;
+                }
+            }
+        }
+
+        JLabel[] rankingLabels = {
+            lblRanking1, lblRanking2, lblRanking3, lblRanking4, lblRanking5,
+            lblRanking6, lblRanking7
+        };
+
+        // Llenar los labels con la información de los jugadores
+        for (int i = 0; i < rankingLabels.length; i++) {
+            if (i < activeUsers.length) {
+                Player player = activeUsers[i];
+                String rankingText = (i + 1) + ". " + player.getUsername() + " - " + player.getPuntos() + " pts";
+                rankingLabels[i].setText(rankingText);
+
+                // Destacar los primeros 3 lugares con colores diferentes
+                if (i == 0) {
+                    rankingLabels[i].setForeground(new Color(255, 215, 0)); // Oro
+                } else if (i == 1) {
+                    rankingLabels[i].setForeground(new Color(192, 192, 192)); // Plata
+                } else if (i == 2) {
+                    rankingLabels[i].setForeground(new Color(205, 127, 50)); // Bronce
+                } else {
+                    rankingLabels[i].setForeground(Color.WHITE);
+                }
+            } else {
+                rankingLabels[i].setText((i + 1) + ". ---");
+                rankingLabels[i].setForeground(new Color(128, 128, 128)); // Gris para espacios vacíos
+            }
+        }
+    }
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         MenuJuego menujuego = new MenuJuego(jugadorActual);
         menujuego.setVisible(true);
@@ -119,12 +250,20 @@ public class Universo_Marvel extends javax.swing.JFrame {
      * @param args the command line arguments
      */
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblRanking1;
+    private javax.swing.JLabel lblRanking2;
+    private javax.swing.JLabel lblRanking3;
+    private javax.swing.JLabel lblRanking4;
+    private javax.swing.JLabel lblRanking5;
+    private javax.swing.JLabel lblRanking6;
+    private javax.swing.JLabel lblRanking7;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JPanel panelRanking;
     // End of variables declaration//GEN-END:variables
 }
