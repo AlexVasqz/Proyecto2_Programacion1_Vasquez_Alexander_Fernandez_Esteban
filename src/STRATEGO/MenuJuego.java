@@ -62,7 +62,9 @@ public class MenuJuego extends javax.swing.JFrame {
         });
 
         btnMiPerfil.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnMiPerfil.setText("MI PERFIL");
+        btnMiPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mi-Perfil.png"))); // NOI18N
+        btnMiPerfil.setBorderPainted(false);
+        btnMiPerfil.setContentAreaFilled(false);
         btnMiPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMiPerfilActionPerformed(evt);
@@ -70,7 +72,9 @@ public class MenuJuego extends javax.swing.JFrame {
         });
 
         btnUniversoMarvel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnUniversoMarvel.setText("UNIVERSO MARVEL");
+        btnUniversoMarvel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Universo-Marvel.png"))); // NOI18N
+        btnUniversoMarvel.setBorderPainted(false);
+        btnUniversoMarvel.setContentAreaFilled(false);
         btnUniversoMarvel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUniversoMarvelActionPerformed(evt);
@@ -78,7 +82,9 @@ public class MenuJuego extends javax.swing.JFrame {
         });
 
         btnCerrarSesion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnCerrarSesion.setText("CERRAR SESION");
+        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar-sesion.png"))); // NOI18N
+        btnCerrarSesion.setBorderPainted(false);
+        btnCerrarSesion.setContentAreaFilled(false);
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarSesionActionPerformed(evt);
@@ -90,24 +96,23 @@ public class MenuJuego extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(347, 347, 347)
-                        .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(294, 294, 294)
-                        .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(306, Short.MAX_VALUE))
+                .addGap(294, 294, 294)
+                .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(100, 100, 100)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnMiPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnStrategoMarvel, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUniversoMarvel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConfiguracion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnStrategoMarvel, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                    .addComponent(btnMiPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnUniversoMarvel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnConfiguracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(100, 100, 100))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(325, 325, 325))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,9 +127,9 @@ public class MenuJuego extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMiPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUniversoMarvel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
+                .addGap(61, 61, 61)
                 .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74))
+                .addGap(68, 68, 68))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -143,19 +148,10 @@ public class MenuJuego extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnStrategoMarvelActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            System.out.println("Botón Stratego Marvel presionado");
-            Tablero tablero = new Tablero();
-            tablero.setVisible(true);
-            this.dispose(); // Cerrar el menú actual
-        } catch (Exception e) {
-            System.err.println("Error al abrir el tablero: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this,
-                    "Error al abrir el tablero: " + e.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
+        System.out.println("Botón Stratego Marvel presionado");
+        Tablero tablero = new Tablero();
+        tablero.setVisible(true);
+        this.dispose();
     }
 
     private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
@@ -163,35 +159,31 @@ public class MenuJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
     private void btnMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiPerfilActionPerformed
-        try {
-            System.out.println("Abriendo Mi Perfil para: " + jugadorActual.getUsername());
-            MiPerfil miPerfil = new MiPerfil(jugadorActual);
-            miPerfil.setVisible(true);
-            this.dispose();
-        } catch (Exception e) {
-            System.err.println("Error al abrir Mi Perfil: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }
+        MiPerfil miPerfil = new MiPerfil(jugadorActual);
+        miPerfil.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnMiPerfilActionPerformed
 
     private void btnUniversoMarvelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUniversoMarvelActionPerformed
-        // UNIVERSO MARVEL - Sin funcionalidad por ahora
+        Universo_Marvel universoMarvel = new Universo_Marvel(jugadorActual);
+        universoMarvel.setVisible(true);
+        universoMarvel.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btnUniversoMarvelActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         int respuesta = JOptionPane.showConfirmDialog(
-        null,
-        "¿Está seguro de que desea cerrar sesión?",
-        "Confirmar cierre de sesión",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.QUESTION_MESSAGE
-    );
-    
-    if (respuesta == JOptionPane.YES_OPTION) {
-        new menu().setVisible(true);
-        dispose();
-    }
+                null,
+                "¿Está seguro de que desea cerrar sesión?",
+                "Confirmar cierre de sesión",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            new menu().setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

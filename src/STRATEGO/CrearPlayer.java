@@ -33,7 +33,7 @@ public class CrearPlayer extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("CREAR NUEVO JUGADOR");
+        lblTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Crear-Nuevo-Jugador.png"))); // NOI18N
 
         lblInstrucciones.setBackground(new java.awt.Color(204, 204, 204));
         lblInstrucciones.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -61,7 +61,9 @@ public class CrearPlayer extends javax.swing.JFrame {
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         btnCrear.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnCrear.setText("CREAR JUGADOR");
+        btnCrear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Crear-Player.png"))); // NOI18N
+        btnCrear.setBorderPainted(false);
+        btnCrear.setContentAreaFilled(false);
         btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearActionPerformed(evt);
@@ -69,7 +71,9 @@ public class CrearPlayer extends javax.swing.JFrame {
         });
 
         btnCancelar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnCancelar.setText("CANCELAR");
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Volver.png"))); // NOI18N
+        btnCancelar.setBorderPainted(false);
+        btnCancelar.setContentAreaFilled(false);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -108,9 +112,9 @@ public class CrearPlayer extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(27, 27, 27)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(lblInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
