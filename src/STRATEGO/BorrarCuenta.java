@@ -153,6 +153,15 @@ public class BorrarCuenta extends javax.swing.JFrame {
             return;
         }
 
+        if (!jugador.getPassword().equals(password)) {
+            JOptionPane.showMessageDialog(this,
+                    "La contraseña ingresada es incorrecta",
+                    "Error de autenticación",
+                    JOptionPane.ERROR_MESSAGE);
+            txtPassword.setText("");
+            txtPassword.requestFocus();
+            return;
+        }
         int confirmacion = JOptionPane.showConfirmDialog(null,
                 "¿Está seguro que desea eliminar su cuenta?\n"
                 + "Esta acción no se puede deshacer.",
@@ -160,12 +169,12 @@ public class BorrarCuenta extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE);
 
-        if(confirmacion == JOptionPane.YES_OPTION){
+        if (confirmacion == JOptionPane.YES_OPTION) {
             jugador.setEliminado(true);
-             JOptionPane.showMessageDialog(null,
-                "Su cuenta ha sido eliminada exitosamente.","Cuenta eliminada",JOptionPane.INFORMATION_MESSAGE);
-             new menu().setVisible(true);
-             dispose();
+            JOptionPane.showMessageDialog(null,
+                    "Su cuenta ha sido eliminada exitosamente.", "Cuenta eliminada", JOptionPane.INFORMATION_MESSAGE);
+            new menu().setVisible(true);
+            dispose();
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 

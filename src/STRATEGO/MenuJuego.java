@@ -155,7 +155,12 @@ public class MenuJuego extends javax.swing.JFrame {
     }
 
     private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
-        // CONFIGURACION - Sin funcionalidad por ahora
+        JOptionPane.showMessageDialog(
+                null,
+                "Opcion no habilitada \nVendrá en futuras actualizaciones",
+                "Opción no habilitada",
+                JOptionPane.WARNING_MESSAGE
+        );
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
     private void btnMiPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiPerfilActionPerformed
