@@ -21,7 +21,8 @@ public class Universo_Marvel extends javax.swing.JFrame {
         this.jugadorActual = jugadorActual;
         initComponents();
         jPanel1.setOpaque(false);
-        setupRankingLabels();
+        RankingLabels();
+        BatallaStats();
     }
 
     /**
@@ -47,6 +48,11 @@ public class Universo_Marvel extends javax.swing.JFrame {
         lblRanking6 = new javax.swing.JLabel();
         lblRanking7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        lblUsuariosActivos = new javax.swing.JLabel();
+        lblUsuariosHistoricos = new javax.swing.JLabel();
+        lblPartidasJugadas = new javax.swing.JLabel();
+        lblVictoriasHeroes = new javax.swing.JLabel();
+        lblVictoriasVillanos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +80,8 @@ public class Universo_Marvel extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Century", 2, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Batallas");
+
+        panelRanking.setBackground(new java.awt.Color(213, 225, 225));
 
         lblRanking1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lblRanking1.setText("1.");
@@ -132,15 +140,44 @@ public class Universo_Marvel extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lblUsuariosActivos.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lblUsuariosHistoricos.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lblPartidasJugadas.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lblVictoriasHeroes.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lblVictoriasVillanos.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsuariosActivos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblVictoriasHeroes, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                    .addComponent(lblVictoriasVillanos, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                    .addComponent(lblPartidasJugadas, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                    .addComponent(lblUsuariosHistoricos, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblUsuariosActivos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblUsuariosHistoricos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblPartidasJugadas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblVictoriasHeroes, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblVictoriasVillanos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -149,7 +186,7 @@ public class Universo_Marvel extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(301, 301, 301)
-                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(302, 302, 302))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -198,10 +235,9 @@ public class Universo_Marvel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void setupRankingLabels() {
+    private void RankingLabels() {
         Player[] activeUsers = Usuarios.getActiveUsers();
 
-        // Sort users by points using bubble sort (sin Collections.sort)
         for (int i = 0; i < activeUsers.length - 1; i++) {
             for (int j = 0; j < activeUsers.length - i - 1; j++) {
                 if (activeUsers[j].getPuntos() < activeUsers[j + 1].getPuntos()) {
@@ -217,29 +253,56 @@ public class Universo_Marvel extends javax.swing.JFrame {
             lblRanking6, lblRanking7
         };
 
-        // Llenar los labels con la información de los jugadores
         for (int i = 0; i < rankingLabels.length; i++) {
             if (i < activeUsers.length) {
                 Player player = activeUsers[i];
                 String rankingText = (i + 1) + ". " + player.getUsername() + " - " + player.getPuntos() + " pts";
                 rankingLabels[i].setText(rankingText);
 
-                // Destacar los primeros 3 lugares con colores diferentes
                 if (i == 0) {
-                    rankingLabels[i].setForeground(new Color(255, 215, 0)); // Oro
+                    rankingLabels[i].setForeground(new Color(236, 173, 0));
                 } else if (i == 1) {
-                    rankingLabels[i].setForeground(new Color(192, 192, 192)); // Plata
+                    rankingLabels[i].setForeground(new Color(192, 192, 192));
                 } else if (i == 2) {
-                    rankingLabels[i].setForeground(new Color(205, 127, 50)); // Bronce
+                    rankingLabels[i].setForeground(new Color(205, 127, 50));
                 } else {
-                    rankingLabels[i].setForeground(Color.WHITE);
+                    rankingLabels[i].setForeground(Color.BLACK);
                 }
             } else {
                 rankingLabels[i].setText((i + 1) + ". ---");
-                rankingLabels[i].setForeground(new Color(128, 128, 128)); // Gris para espacios vacíos
+                rankingLabels[i].setForeground(new Color(255,255,255));
             }
         }
     }
+    
+     private void BatallaStats() {
+        int activeUsers = Usuarios.getActiveUserCount();
+        int totalUsers = Usuarios.getUserCount();
+        
+        int totalGames = 0;
+        int totalWins = 0;
+        
+        Player[] allUsers = Usuarios.getAllUsers();
+        for (int i = 0; i < Usuarios.getUserCount(); i++) {
+            Player player = allUsers[i];
+            if (player != null) {
+                totalGames += player.getTotalPartidas();
+                totalWins += player.getPuntos() / 3;
+            }
+        }
+        
+        totalGames = totalGames / 2;
+        
+        int heroWins = totalWins / 2;
+        int villainWins = totalWins - heroWins;
+        
+        lblUsuariosActivos.setText("Usuarios Activos: " + activeUsers);
+        lblUsuariosHistoricos.setText("Usuarios Históricos: " + totalUsers);
+        lblPartidasJugadas.setText("Partidas Jugadas: " + totalGames);
+        lblVictoriasHeroes.setText("Victorias Héroes: " + heroWins);
+        lblVictoriasVillanos.setText("Victorias Villanos: " + villainWins);
+    }
+    
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         MenuJuego menujuego = new MenuJuego(jugadorActual);
         menujuego.setVisible(true);
@@ -256,6 +319,7 @@ public class Universo_Marvel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblPartidasJugadas;
     private javax.swing.JLabel lblRanking1;
     private javax.swing.JLabel lblRanking2;
     private javax.swing.JLabel lblRanking3;
@@ -264,6 +328,10 @@ public class Universo_Marvel extends javax.swing.JFrame {
     private javax.swing.JLabel lblRanking6;
     private javax.swing.JLabel lblRanking7;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblUsuariosActivos;
+    private javax.swing.JLabel lblUsuariosHistoricos;
+    private javax.swing.JLabel lblVictoriasHeroes;
+    private javax.swing.JLabel lblVictoriasVillanos;
     private javax.swing.JPanel panelRanking;
     // End of variables declaration//GEN-END:variables
 }
