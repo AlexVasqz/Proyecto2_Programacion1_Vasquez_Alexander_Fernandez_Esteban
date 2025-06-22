@@ -9,6 +9,7 @@ public class Player {
     private int perdidas;
     private int vecesHeroe;
     private int vecesVillano;
+    private boolean eliminado = false;
 
     public Player(String username, String password) {
         this.username = username;
@@ -18,6 +19,7 @@ public class Player {
         this.perdidas = 0;
         this.vecesHeroe = 0;
         this.vecesVillano = 0;
+        this.eliminado = false;
     }
 
     public String getUsername() {
@@ -52,8 +54,16 @@ public class Player {
         return vecesVillano;
     }
 
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
     public void setPuntos(int puntos) {
         this.puntos = puntos;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
     }
 
     public void incrementarGanadas() {
@@ -78,13 +88,13 @@ public class Player {
 
     @Override
     public String toString() {
-         return "Player{" +
-                "username='" + username + '\'' +
-                ", puntos=" + puntos +
-                ", ganadas=" + ganadas +
-                ", perdidas=" + perdidas +
-                ", vecesHeroe=" + vecesHeroe +
-                ", vecesVillano=" + vecesVillano +
-                '}';
+        return "Player{"
+                + "username='" + username + '\''
+                + ", puntos=" + puntos
+                + ", ganadas=" + ganadas
+                + ", perdidas=" + perdidas
+                + ", vecesHeroe=" + vecesHeroe
+                + ", vecesVillano=" + vecesVillano
+                + '}';
     }
 }

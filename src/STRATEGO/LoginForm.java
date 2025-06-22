@@ -131,7 +131,7 @@ public class LoginForm extends javax.swing.JFrame {
         String password = new String(passwordField.getPassword());
 
         if (usuario.isEmpty() || password.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this,
+            javax.swing.JOptionPane.showMessageDialog(null,
                     "Por favor, complete todos los campos",
                     "Error",
                     javax.swing.JOptionPane.WARNING_MESSAGE);
@@ -146,10 +146,21 @@ public class LoginForm extends javax.swing.JFrame {
             dispose();
         } else {
 
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Username o password incorrectos.\nVerifique sus credenciales e intente nuevamente.",
-                    "Error de autenticación",
-                    javax.swing.JOptionPane.ERROR_MESSAGE);
+            Player playerEliminado = Usuarios.getPlayerByUsername(usuario);
+
+            if (playerEliminado != null && playerEliminado.isEliminado()) {
+                javax.swing.JOptionPane.showMessageDialog(null,
+                        "Esta cuenta ha sido eliminada y no puede ser utilizada.\n"
+                        + "Si desea jugar nuevamente, debe crear una nueva cuenta.",
+                        "Cuenta eliminada",
+                        javax.swing.JOptionPane.WARNING_MESSAGE);
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(null,
+                        "Username o password incorrectos.\n"
+                        + "Verifique sus credenciales e intente nuevamente.",
+                        "Error de autenticación",
+                        javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
 
             passwordField.setText("");
             passwordField.requestFocus();

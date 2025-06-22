@@ -44,7 +44,6 @@ public class MiPerfil extends javax.swing.JFrame {
         textAreaLogs.setForeground(Color.WHITE);
         textAreaLogs.setBackground(new Color(0, 0, 0, 100));
         
-        // Configurar scroll pane
         jScrollPane1.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(Color.WHITE, 2), 
             "Historial de Partidos", 
@@ -112,6 +111,11 @@ public class MiPerfil extends javax.swing.JFrame {
 
         btnBorrarCuenta.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnBorrarCuenta.setText("Borrar Cuenta");
+        btnBorrarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarCuentaActionPerformed(evt);
+            }
+        });
 
         btnVolver.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnVolver.setText("Volver");
@@ -239,6 +243,12 @@ public class MiPerfil extends javax.swing.JFrame {
         cambiar.setVisible(true);
         cambiar.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnCambiarPasswordActionPerformed
+
+    private void btnBorrarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarCuentaActionPerformed
+        BorrarCuenta borrarCuenta = new BorrarCuenta(jugadorActual);
+        borrarCuenta.setVisible(true);
+        borrarCuenta.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnBorrarCuentaActionPerformed
 
     /**
      * @param args the command line arguments

@@ -42,14 +42,50 @@ public class Usuarios {
 
     public static Player validateLogin(String username, String password) {
         for (int i = 0; i < contadorUsuarios; i++) {
-            if (usuarios[i].getUsername().equals(username) && 
-                usuarios[i].getPassword().equals(password)) {
-                return usuarios[i]; 
+            Player player = usuarios[i];
+            if (player.getUsername().equals(username)
+                    && player.getPassword().equals(password)) {
+
+                if (player.isEliminado()) {
+                    return null;
+                }
+
+                return player;
             }
         }
-        return null; 
+        return null;
     }
     
+    public static Player[] getActiveUsers() {
+        int activeCount = 0;
+        
+        for (int i = 0; i < contadorUsuarios; i++) {
+            if (!usuarios[i].isEliminado()) {
+                activeCount++;
+            }
+        }
+        
+        Player[] activeUsers = new Player[activeCount];
+        int index = 0;
+        for (int i = 0; i < contadorUsuarios; i++) {
+            if (!usuarios[i].isEliminado()) {
+                activeUsers[index] = usuarios[i];
+                index++;
+            }
+        }
+        
+        return activeUsers;
+    }
+    
+    public static int getActiveUserCount() {
+        int count = 0;
+        for (int i = 0; i < contadorUsuarios; i++) {
+            if (!usuarios[i].isEliminado()) {
+                count++;
+            }
+        }
+        return count;
+    }
     
     public static int getUserCount() {
         return contadorUsuarios;

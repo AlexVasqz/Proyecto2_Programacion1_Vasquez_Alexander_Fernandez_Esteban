@@ -20,7 +20,6 @@ public class CambiarPassword extends javax.swing.JFrame {
         this.jugadorActual = jugadorActual;
         initComponents();
         jPanel1.setOpaque(false);
-        setLocationRelativeTo(null);
     }
 
     /**
@@ -65,9 +64,11 @@ public class CambiarPassword extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Contraseña Nueva:");
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Contraseña Actual:");
 
         txtNueva.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
