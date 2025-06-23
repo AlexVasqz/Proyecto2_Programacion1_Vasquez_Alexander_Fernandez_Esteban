@@ -25,6 +25,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login - Stratego");
+        setUndecorated(true);
         setResizable(false);
 
         lblTitulo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
